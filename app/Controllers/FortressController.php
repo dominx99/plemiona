@@ -6,7 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class BuildingsController extends Controller
+class FortressController extends Controller
 {
     /**
      * @param \Slim\Http\Request $request
@@ -20,7 +20,8 @@ class BuildingsController extends Controller
             return $this->view->render($response, 'errors/404.twig');
         }
 
-        return $this->view->render($response, 'buildings/buildings.twig', [
+        return $this->view->render($response, 'buildings/fortress.twig', [
+            'fortress'  => $this->buildings->findByType('fortress'),
             'buildings' => $buildings,
         ]);
     }

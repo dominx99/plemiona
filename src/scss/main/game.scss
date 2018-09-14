@@ -1,3 +1,40 @@
 body {
     background-color: $main;
+    font-family: monospace;
+    color: $light;
+}
+
+.game-container {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+
+    .content {
+        width: calc(100% - 300px);
+    }
+}
+
+.buildings {
+    padding: 3rem;
+    font-size: 120%;
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+
+            a {
+                display: block;
+                padding: .5rem;
+                color: $light;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
 }

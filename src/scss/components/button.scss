@@ -16,12 +16,31 @@
     }
 }
 
-.btn-default {
-    background-color: $light;
-    color: $main;
-}
-
 .btn-block {
     display: block;
     width: 100%;
 }
+
+@function text-color($color) {
+    @if (lightness($color) > 60) {
+        @return $dark;
+    } @else {
+        @return $light;
+    }
+}
+
+@each $name, $color in $colors {
+    .btn-#{$name} {
+        background-color: $color;
+        color: text-color($color);
+        transition: background .2s;
+
+        &:hover {
+            background-color: darken($color, 10);
+        }
+
+        &:active {
+            box-shadow: none;
+        }
+    }
+};

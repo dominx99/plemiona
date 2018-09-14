@@ -11,11 +11,10 @@ const gulp         = require('gulp'),
       source       = require('vinyl-source-stream'),
       buffer       = require('vinyl-buffer');
 
-const jsSrc   = 'main.js',
-      jsFolder   = 'src/js/',
-      jsDist  = './dist/js',
-      jsWatch = 'src/js/**/*.js',
-      jsFiles = [jsSrc];
+const jsFolder = 'src/js/',
+      jsDist   = './dist/js',
+      jsWatch  = 'src/js/**/*.js',
+      jsFiles  = ['village.js'];
 
 const cssSrc   = ['src/css/**/*.css', '!src/css/**/*.min.css'],
       cssWatch = 'src/scss/**/*.scss',

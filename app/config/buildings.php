@@ -2,13 +2,13 @@
 
 return [
     'buildings_at_start' => [
-        'fortress'     => [
+        'fortress'  => [
             'level' => 1,
         ],
-        'gold_factory' => [
+        'gold_mine' => [
             'level' => 1,
         ],
-        'food_factory' => [
+        'farm'      => [
             'level' => 1,
         ],
     ],

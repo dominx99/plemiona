@@ -31,6 +31,8 @@ class UserIsOwnerOfVillageMiddleware extends Middleware
             return $response->withRedirect($this->container->router->pathFor('villages.select'));
         }
 
+        $this->container->view->getEnvironment()->addGlobal('village', $village);
+
         return $next($request, $response);
     }
 }

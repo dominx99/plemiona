@@ -51,7 +51,7 @@ class Validator
     /**
      * @return array errors
      */
-    public function get()
+    public function getErrors()
     {
         return $this->errors;
     }

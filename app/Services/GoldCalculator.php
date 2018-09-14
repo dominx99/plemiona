@@ -26,7 +26,7 @@ class GoldCalculator implements VillageCalculator
      */
     public function calculate(Village $village): int
     {
-        $level = $village->getBuildingLevel('gold_factory');
+        $level = $village->getBuildingLevel('gold_mine');
 
         return $this->calculateByLevel($level);
     }

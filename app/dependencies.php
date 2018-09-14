@@ -24,6 +24,10 @@ $container['auth'] = function () {
     return new \App\Auth\Auth();
 };
 
+$container['config'] = function () {
+    return new \App\Config();
+};
+
 $container['view'] = function ($container) {
     $view = new \Slim\Views\Twig('views', [
         'cache' => false,
@@ -31,6 +35,7 @@ $container['view'] = function ($container) {
 
     $basePath = rtrim(str_ireplace('index.php', '', $container->get('request')->getUri()->getBasePath()), '/');
     $view->addExtension(new Slim\Views\TwigExtension($container->get('router'), $basePath));
+    $view->addExtension(new \App\Twig\ConfigExtension($container->get('config')));
 
     return $view;
 };

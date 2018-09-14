@@ -1,0 +1,35 @@
+.sidebar {
+    width: 300px;
+    height: 100vh;
+    overflow: auto;
+    background-color: rgba(darken($main, 15), .5);
+    font-size: 120%;
+
+    border-left: 1px solid darken($main, 10);
+
+    .header {
+        padding: 1rem;
+        text-align: center;
+        font-size: 120%;
+        background-color: darken($main, 13);
+    }
+
+    .section {
+        ul.properties {
+            list-style-type: none;
+            padding: 1rem;
+            margin: 0;
+
+            li {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: .5rem;
+
+                &:last-item {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}

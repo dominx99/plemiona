@@ -8,6 +8,7 @@
     "url": "https://github.com/dominx99/plemiona"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "jquery": "^3.3.1"
   },
   "devDependencies": {

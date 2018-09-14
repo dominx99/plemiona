@@ -1,1 +1,17 @@
-{{ village | json_encode }}
+{% extends "layouts/game.twig" %}
+
+{% block title %}{{ village.name }}{% endblock %}
+
+{% block content %}
+    
+    <div class="buildings">
+        <ul>
+            {% for building in village.buildings %}
+                <li>
+                    <a href="{{ path_for('building.' ~ building.type, {id: village.id}) }}">{{ building.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock content %}

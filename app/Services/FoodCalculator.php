@@ -26,7 +26,7 @@ class FoodCalculator implements VillageCalculator
      */
     public function calculate(Village $village): int
     {
-        $level = $village->getBuildingLevel('food_factory');
+        $level = $village->getBuildingLevel('farm');
 
         return $this->calculateByLevel($level);
     }

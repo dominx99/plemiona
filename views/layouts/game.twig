@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="village_id" content="{{ village.id }}">
+    <title>{% block title %}{% endblock title %} | Plemiona</title>
+
+    <link rel="stylesheet" href="{{ base_url() }}/dist/css/game.min.css">
+</head>
+<body>
+
+
+    <main>
+        <div class="game-container">
+            <div class="content">
+                {% block content %}{% endblock content %}
+            </div>
+            
+            <div class="sidebar">
+                <div class="header">{{ village.name }}</div>
+                <div class="section">
+                    <ul class="properties">
+                        <li>
+                            <div>gold</div>
+                            <div id="gold">{{ village.gold }}</div>
+                        </li>
+                        <li>
+                            <div>food</div>
+                            <div id="food">{{ village.food }}</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="{{ base_url() }}/dist/js/village.min.js"></script>
+</body>
+</html>

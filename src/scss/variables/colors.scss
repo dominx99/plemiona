@@ -1,9 +1,17 @@
 /* colors */
 
-$main: #184971;
+$main: #184061;
 $light: #fefefe;
 $dark: #000;
 
 $danger: #ca463d;
 $pink: #e91e63;
 $green: green;
+
+$colors: (
+    ('primary', $main),
+    ('secondary', lighten($main, 20)),
+    ('success', $green),
+    ('danger', $danger),
+    ('default', $light),
+);

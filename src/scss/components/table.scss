@@ -1,0 +1,30 @@
+.table {
+    width: 100%;
+    background-color: darken($main, 4);
+    font-size: 120%;
+    text-align: left;
+    -webkit-border-horizontal-spacing: 0;
+    -webkit-border-vertical-spacing: 0;
+    box-shadow: 0 1px 1px 1px rgba($dark, .3);
+
+    tr {
+        td, th {
+            padding: 1rem;
+        }
+
+        &.header {
+            background-color: darken($main, 8);
+        }
+
+        td {
+            a {
+                color: $light;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
