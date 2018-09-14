@@ -23,7 +23,7 @@ class ConfirmPassword extends AbstractRule
      * @param string $input
      * @return boolean
      */
-    public function validate(string $input): bool
+    public function validate($input)
     {
         return $input === $this->password;
     }
