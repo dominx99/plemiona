@@ -2,10 +2,24 @@
 
 namespace App\Services;
 
+use App\Config;
 use App\Models\Village;
 
-class FoodCalculator extends Service implements VillageCalculator
+class FoodCalculator implements VillageCalculator
 {
+    /**
+     * @var integer $perLevel
+     */
+    protected $perLevel;
+
+    /**
+     * @param \App\Config $config
+     */
+    public function __construct(Config $config)
+    {
+        $this->perLevel = $config->get('game.food_per_level');
+    }
+
     /**
      * @param \App\Models\Village $village
      * @return integer
@@ -23,7 +37,7 @@ class FoodCalculator extends Service implements VillageCalculator
      */
     public function calculateByLevel(int $level): int
     {
-        $value = 0.618 * $level;
+        $value = $this->perLevel * $level;
 
         return ceil($value);
     }

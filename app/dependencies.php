@@ -41,10 +41,6 @@ $container['buildings'] = function ($container) {
     return new \App\Repositories\BuildingRepository($container);
 };
 
-$container['goldCalculator'] = function ($container) {
-    return new \App\Services\GoldCalculator($container);
-};
-
 $container['villages'] = function ($container) {
     return new \App\Repositories\VillageRepository($container);
 };
