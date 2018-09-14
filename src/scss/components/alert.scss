@@ -1,0 +1,9 @@
+.alert {
+    padding: 1rem;
+}
+
+.alert-danger {
+    background-color: rgba($danger, .8);
+    color: $light;
+    border: 1px solid $danger;
+}

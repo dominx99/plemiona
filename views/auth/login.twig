@@ -1,0 +1,27 @@
+{% extends "layouts/auth.twig" %}
+
+{% block title %} Logowanie {% endblock %}
+
+{% block content %}
+
+    <form class="auth-form card" action="{{ path_for('auth.login') }}" method="post">
+        <div class="d-flex justify-content-around">
+            <a href="{{ path_for('auth.register') }}" class="btn btn-block no-shadow">rejestracja</a>
+            <a href="{{ path_for('auth.login') }}" class="btn btn-block btn-default no-shadow">logowanie</a>
+        </div>
+        <div class="card-body">
+            <div style="margin-bottom: 1rem;" class="alert alert-danger {{ error ? '' : 'd-none' }}">
+                Nie poprawny nick lub hasło
+            </div>
+            <div class="form-group">
+                <label for="nick">Nick</label>
+                <input type="text" name="nick" id="nick" placeholder="nick" value="{{ old.nick }}">
+            </div>
+            <div class="form-group mb-0">
+                <label for="password">Hasło</label>
+                <input type="password" name="password" placeholder="******">
+            </div>
+        </div>
+        <button style="margin-top: 1rem;" type="submit" class="btn btn-primary btn-block">Zaloguj</button>
+    </form>
+{% endblock content %}

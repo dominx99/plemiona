@@ -1,0 +1,31 @@
+{% extends "layouts/auth.twig" %}
+
+{% block title %} Rejestracja {% endblock %}
+
+{% block content %}
+
+    <form class="auth-form card" action="{{ path_for('auth.register') }}" method="post">
+        <div class="d-flex justify-content-around">
+            <a href="{{ path_for('auth.register') }}" class="btn btn-block btn-default no-shadow">rejestracja</a>
+            <a href="{{ path_for('auth.login') }}" class="btn btn-block no-shadow">logowanie</a>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="nick">Nick</label>
+                <input type="text" name="nick" id="nick" placeholder="nick" value="{{ old.nick }}">
+                <span class="text-danger">{{ errors.nick | first }}</span>
+            </div>
+            <div class="form-group">
+                <label for="password">Hasło</label>
+                <input type="password" name="password" id="password" placeholder="******">
+                <span class="text-danger">{{ errors.password | first }}</span>
+            </div>
+            <div class="form-group mb-0">
+                <label for="confirm_password">Powtórz hasło</label>
+                <input type="password" name="confirm_password" id="confirm_password" placeholder="******">
+                <span class="text-danger">{{ errors.confirm_password | first }}</span>
+            </div>
+        </div>
+        <button style="margin-top: 1rem;" type="submit" class="btn btn-primary btn-block">Kontynuuj</button>
+    </form>
+{% endblock content %}
