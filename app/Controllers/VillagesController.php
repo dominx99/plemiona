@@ -62,9 +62,9 @@ class VillagesController extends Controller
             return $response->withRedirect($this->router->pathFor('villages.select'));
         }
 
-        return $this->view->render($response, 'villages/village.twig', [
-            'village' => $this->villages->first(),
-        ]);
+        return $response->withRedirect($this->router->pathFor('villages.show', [
+            'id' => $this->villages->first()->id,
+        ]));
     }
 
     /**
@@ -74,7 +74,7 @@ class VillagesController extends Controller
     {
         if ($this->villages->userVillagesCount() === 1) {
             return (new Response)->withRedirect($this->router->pathFor('villages.show', [
-                'id' => $this->auth->user()->id,
+                'id' => $this->villages->first()->id,
             ]));
         }
 

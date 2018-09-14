@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Village;
 use Illuminate\Database\Eloquent\Collection;
 
 class VillageRepository extends AbstractRepository
@@ -28,5 +29,15 @@ class VillageRepository extends AbstractRepository
             ->villages()
             ->orderBy('created_at', 'desc')
             ->first();
+    }
+
+    /**
+     * @param integer $x
+     * @param integer $y
+     * @return boolean
+     */
+    public function existsByCoordinates(int $x, int $y): bool
+    {
+        return Village::where('x', $x)->where('y', $y)->exists();
     }
 }

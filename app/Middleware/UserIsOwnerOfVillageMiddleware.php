@@ -23,7 +23,9 @@ class UserIsOwnerOfVillageMiddleware extends Middleware
             return $next($request, $response);
         }
 
-        $village = $this->container->villages->find($id);
+        if (!$village = $this->container->villages->find($id)) {
+            return $next($request, $response);
+        }
 
         if (!$village->isOwner($this->container->auth->user()->id)) {
             return $response->withRedirect($this->container->router->pathFor('villages.select'));

@@ -8,7 +8,6 @@ class Building extends Model
 {
     protected $fillable = [
         'name',
-        'buildable_id',
-        'buildable_type',
+        'type',
     ];
 }

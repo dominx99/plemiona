@@ -22,6 +22,6 @@ $app->group('', function () use ($app, $container) {
     $app->group('', function () use ($app) {
         $app->get('/buildings/{id}', BuildingsController::class . ':index')->setName('user.buildings');
 
-        $app->get('/[{id}]', VillagesController::class . ':show')->setName('villages.show');
+        $app->get('/[{id:[0-9]+}]', VillagesController::class . ':show')->setName('villages.show');
     })->add(new \App\Middleware\UserIsOwnerOfVillageMiddleware($container));
 })->add(new AuthMiddleware($container));

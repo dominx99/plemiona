@@ -26,9 +26,9 @@ abstract class AbstractRepository
     /**
      * @param integer $id
      * @param string|array|null $with
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model|null
      */
-    public function find(int $id, $with = null): Model
+    public function find(int $id, $with = null)
     {
         $model = $this->model();
 

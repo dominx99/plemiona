@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\User;
 use App\Models\Village;
+use App\Observers\UserObserver;
 use App\Observers\VillageObserver;
 use App\Repositories\VillageRepository;
 use Illuminate\Events\Dispatcher;
@@ -46,5 +48,6 @@ $container['villages'] = function ($container) {
 };
 
 Village::observe(VillageObserver::class);
+User::observe(UserObserver::class);
 
 v::with('App\Validation\\Rules\\');
