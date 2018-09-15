@@ -8,6 +8,8 @@
     <title>{% block title %}{% endblock title %} | Plemiona</title>
 
     <link rel="stylesheet" href="{{ base_url() }}/dist/css/game.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran|Indie+Flower|Lato|Noto+Sans|Open+Sans|Passion+One|Roboto|Roboto+Condensed|Russo+One|Skranji|Source+Sans+Pro" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Overpass+Mono|Roboto+Mono" rel="stylesheet">
 </head>
 <body>
 
@@ -18,21 +20,7 @@
                 {% block content %}{% endblock content %}
             </div>
             
-            <div class="sidebar">
-                <div class="header">{{ village.name }}</div>
-                <div class="section">
-                    <ul class="properties">
-                        <li>
-                            <div>gold</div>
-                            <div id="gold">{{ village.gold }}</div>
-                        </li>
-                        <li>
-                            <div>food</div>
-                            <div id="food">{{ village.food }}</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            {% include "layouts/partials/sidebar.twig" %}
         </div>
     </main>
 

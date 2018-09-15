@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for building in village.buildings %}
+                {% for building in buildings %}
                     <tr>
                         <td>
                             <a href="{{ path_for('building.' ~ building.type, {id: village.id}) }}">{{ building.name }}</a>
@@ -22,7 +22,9 @@
                         <td>{{ building.pivot.building_level }}</td>
                         <td>{{ building.cost_upgrade }}</td>
                         <td class="text-center">
-                            <button class="btn btn-secondary">ulepsz</button>
+                            <button class="btn btn-secondary">
+                                <span>{{ building.pivot.building_level > 0 ? 'Ulepsz' : 'Rozbuduj' }}</span>
+                            </button>
                         </td>
                     </tr>
                 {% endfor %}

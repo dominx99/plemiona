@@ -15,6 +15,9 @@
     }
 
     .section {
+        margin: 2rem 0;
+        background-color: darken($main, 5);
+        
         ul.properties {
             list-style-type: none;
             padding: 1rem;
@@ -29,6 +32,15 @@
                 &:last-item {
                     margin-bottom: 0;
                 }
+            }
+        }
+
+        .timings {
+            .object {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1rem;
             }
         }
     }

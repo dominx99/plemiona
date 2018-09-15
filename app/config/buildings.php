@@ -11,5 +11,8 @@ return [
         'farm'      => [
             'level' => 1,
         ],
+        'barrack'   => [
+            'level' => 0,
+        ],
     ],
 ];

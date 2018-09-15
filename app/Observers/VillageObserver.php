@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Config;
 use App\Models\Village;
 use App\Repositories\BuildingRepository;
+use App\Services\BuildingUpgrador;
 use App\Services\FoodCalculator;
 use App\Services\GoldCalculator;
 use Carbon\Carbon;
@@ -15,6 +16,11 @@ class VillageObserver
      * @var \App\Repositories\BuildingRepository
      */
     protected $buildingRepository;
+
+    /**
+     * @var \App\Services\BuildingUpgrador
+     */
+    protected $buildingUpgrador;
 
     /**
      * @var \App\Services\GoldCalculator $gold
@@ -39,9 +45,11 @@ class VillageObserver
         GoldCalculator $gold,
         FoodCalculator $food,
         BuildingRepository $buildingRepository,
+        BuildingUpgrador $buildingUpgrador,
         Config $config
     ) {
         $this->buildingRepository = $buildingRepository;
+        $this->buildingUpgrador   = $buildingUpgrador;
 
         $this->gold = $gold;
         $this->food = $food;
@@ -69,7 +77,8 @@ class VillageObserver
         $village->increment('gold', $gold);
         $village->increment('food', $food);
 
-        $this->buildingRepository->upgradeForVillage($village);
+        $this->buildingUpgrador->upgradeForVillage($village);
+        // $this->buildingUpgrador->setNewActive($village);
     }
 
     /**

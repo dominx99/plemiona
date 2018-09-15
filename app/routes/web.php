@@ -24,6 +24,7 @@ $app->group('', function () use ($app, $container) {
         $app->get('/twierdza/{id}', FortressController::class . ':index')->setName('building.fortress');
         $app->get('/kopalnia-zlota/{id}', GoldMineController::class . ':index')->setName('building.gold_mine');
         $app->get('/farma/{id}', FarmController::class . ':index')->setName('building.farm');
+        $app->get('/koszary/{id}', FarmController::class . ':index')->setName('building.barrack');
 
         $app->get('/[{id:[0-9]+}]', VillagesController::class . ':show')->setName('villages.show');
     })->add(new \App\Middleware\UserIsOwnerOfVillageMiddleware($container));

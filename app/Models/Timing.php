@@ -10,5 +10,18 @@ class Timing extends Model
         'done_at',
         'type',
         'object_id',
+        'active',
     ];
+
+    /**
+     * @param string $time
+     * @return void
+     */
+    public function setActive(string $time): void
+    {
+        $this->update([
+            'active'  => 1,
+            'done_at' => $time,
+        ]);
+    }
 }

@@ -33,14 +33,14 @@
     .btn-#{$name} {
         background-color: $color;
         color: text-color($color);
-        transition: background .2s;
+        transition: all .2s;
 
         &:hover {
-            background-color: darken($color, 10);
+            background-color: lighten($color, 10);
         }
 
         &:active {
-            box-shadow: none;
+            box-shadow: 0 0 5px 3px rgba($dark, .5);
         }
     }
 };

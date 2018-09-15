@@ -1,6 +1,8 @@
 body {
     background-color: $main;
-    font-family: monospace;
+    font-family: 'Roboto mono', monospace;
+    text-transform: uppercase;
+    font-weight: 700;
     color: $light;
 }
 

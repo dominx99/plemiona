@@ -52,6 +52,14 @@ $container['villages'] = function ($container) {
     return new \App\Repositories\VillageRepository($container);
 };
 
+$container['timings'] = function ($container) {
+    return new \App\Repositories\TimingRepository($container);
+};
+
+$container['buildingUpgrador'] = function ($container) {
+    return new \App\Services\BuildingUpgrador($container);
+};
+
 Village::observe(VillageObserver::class);
 User::observe(UserObserver::class);
 
