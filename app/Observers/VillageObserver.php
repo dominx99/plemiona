@@ -68,6 +68,8 @@ class VillageObserver
 
         $village->increment('gold', $gold);
         $village->increment('food', $food);
+
+        $this->buildingRepository->upgradeForVillage($village);
     }
 
     /**

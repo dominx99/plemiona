@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Building extends Model
@@ -15,6 +16,8 @@ class Building extends Model
         'cost',
         'cost_upgrade',
         'can_upgrade',
+        'time',
+        'done_at',
     ];
 
     /** RELATIONSHIPS */
@@ -24,7 +27,7 @@ class Building extends Model
         return $this->hasMany(BuildingCost::class);
     }
 
-    /** OTHERS */
+    /** ATTRIBUTES */
 
     public function getCostAttribute()
     {
@@ -48,5 +51,38 @@ class Building extends Model
     public function canUpgrade()
     {
         return $this->costs()->where('level', $this->pivot->building_level + 1)->exists();
+    }
+
+    public function getTimeAttribute()
+    {
+        if ($this->canUpgrade()) {
+            return $this->costs()->where('level', $this->pivot->building_level + 1)->first()->time;
+        }
+
+        return null;
+    }
+
+    public function getDoneAtAttribute()
+    {
+        if ($this->canUpgrade()) {
+            $now  = Carbon::now();
+            $time = $this->costs()->where('level', $this->pivot->building_level + 1)->first()->time;
+
+            return $now->addSeconds(10)->format('Y-m-d H:i:s');
+        }
+
+        return null;
+    }
+
+    /** OTHERS */
+
+    /**
+     * @return void
+     */
+    public function increaseBuildingLevel(): void
+    {
+        $this->pivot->update([
+            'building_level' => $this->pivot->building_level + 1,
+        ]);
     }
 }

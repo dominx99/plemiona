@@ -20,6 +20,21 @@ class Village extends Model
         return $this->belongsToMany(Building::class)->withPivot('building_level');
     }
 
+    public function timings()
+    {
+        return $this->hasMany(Timing::class);
+    }
+
+    public function buildingTimings()
+    {
+        return $this->timings()->where('type', 'building');
+    }
+
+    public function armyTimings()
+    {
+        return $this->timings()->where('type', 'army');
+    }
+
     /**
      * @param string $building
      * @return integer
@@ -36,5 +51,18 @@ class Village extends Model
     public function isOwner(int $userId): bool
     {
         return $this->user_id === $userId;
+    }
+
+    /**
+     * @param \App\Models\Building $building
+     * @return void
+     */
+    public function upgradeBuilding(Building $building): void
+    {
+        $this->buildingTimings()->create([
+            'object_id' => $building->id,
+            'type'      => 'building',
+            'done_at'   => $building->done_at,
+        ]);
     }
 }
