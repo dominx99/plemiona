@@ -21,14 +21,6 @@
     width: 100%;
 }
 
-@function text-color($color) {
-    @if (lightness($color) > 60) {
-        @return $dark;
-    } @else {
-        @return $light;
-    }
-}
-
 @each $name, $color in $colors {
     .btn-#{$name} {
         background-color: $color;

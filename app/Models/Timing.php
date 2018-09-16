@@ -12,6 +12,7 @@ class Timing extends Model
         'object_id',
         'time',
         'active',
+        'level',
     ];
 
     public function building()

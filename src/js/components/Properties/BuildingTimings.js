@@ -19,8 +19,9 @@ export default class BuildingTimings {
     }
 
     buildTiming(timing) {
+        console.log(timing);
         let el = $('<div></div>').addClass('timing');
-        let name = $('<div></div>').addClass('name').text(timing.building.name);
+        let name = $('<div></div>').addClass('name').text(timing.building.name + ' lv.' + timing.level);
 
         let time = $('<div></div>').addClass('time');
         let seconds = 0;

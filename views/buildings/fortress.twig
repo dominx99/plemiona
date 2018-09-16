@@ -3,32 +3,34 @@
 {% block title %}{{ fortress.name }}{% endblock title %}
 
 {% block content %}
-    <div class="container mt-5">
-        <table class="table">
-            <thead>
-                <tr class="header">
-                    <th>nazwa</th>
-                    <th>level</th>
-                    <th>koszt ulepszenia</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for building in buildings %}
-                    <tr>
-                        <td>
-                            <a href="{{ path_for('building.' ~ building.type, {id: village.id}) }}">{{ building.name }}</a>
-                        </td>
-                        <td>{{ building.pivot.building_level }}</td>
-                        <td>{{ building.cost_upgrade }}</td>
-                        <td class="text-center">
-                            <button class="btn btn-secondary upgrade-building" data-building-id="{{ building.id }}" data-village-id="{{ village.id }}">
-                                <span>{{ building.pivot.building_level > 0 ? 'Ulepsz' : 'Rozbuduj' }}</span>
-                            </button>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div class="alert alert-secondary mb-3">
+        Ulepszanie twierdzy przyśpiesza budowę budynków (jeszcze nie zaimplementowane)
     </div>
+
+    <table class="table">
+        <thead>
+            <tr class="header">
+                <th>nazwa</th>
+                <th>level</th>
+                <th>koszt ulepszenia</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for building in buildings %}
+                <tr>
+                    <td>
+                        <a href="{{ path_for('building.' ~ building.type, {id: village.id}) }}">{{ building.name }}</a>
+                    </td>
+                    <td>{{ building.pivot.building_level }}</td>
+                    <td>{{ building.cost_upgrade }}</td>
+                    <td class="text-center">
+                        <button class="btn btn-secondary upgrade-building" data-building-id="{{ building.id }}" data-village-id="{{ village.id }}">
+                            <span>{{ building.pivot.building_level > 0 ? 'Ulepsz' : 'Rozbuduj' }}</span>
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock content %}

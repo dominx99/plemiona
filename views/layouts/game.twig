@@ -17,7 +17,9 @@
     <main>
         <div class="game-container">
             <div class="content">
-                {% block content %}{% endblock content %}
+                <div class="container mt-5">
+                    {% block content %}{% endblock content %}
+                </div>
             </div>
             
             {% include "layouts/partials/sidebar.twig" %}

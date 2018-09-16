@@ -25,3 +25,17 @@
 .mb-0 {
     margin-bottom: 0;
 }
+
+@function text-color($color) {
+    @if (lightness($color) > 60) {
+        @return $dark;
+    } @else {
+        @return $light;
+    }
+}
+
+@each $name, $color in $colors {
+    .#{$name} {
+        color: $color;
+    }
+};

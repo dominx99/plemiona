@@ -2,8 +2,14 @@
     padding: 1rem;
 }
 
-.alert-danger {
-    background-color: rgba($danger, .8);
-    color: $light;
-    border: 1px solid $danger;
-}
+@each $name, $color in $colors {
+    .alert-#{$name} {
+        background-color: rgba($color, .8);
+        color: text-color($color);
+        border: 1px solid $color;
+
+        &:hover {
+            background-color: lighten($color, 10);
+        }
+    }
+};

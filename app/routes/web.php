@@ -1,8 +1,10 @@
 <?php
 
 use App\Controllers\AuthController;
-use App\Controllers\FortressController;
-use App\Controllers\GoldMineController;
+use App\Controllers\Buildings\BarrackController;
+use App\Controllers\Buildings\FarmController;
+use App\Controllers\Buildings\FortressController;
+use App\Controllers\Buildings\GoldMineController;
 use App\Controllers\PrepareDatabaseController;
 use App\Controllers\VillagesController;
 use App\Middleware\AuthMiddleware;
@@ -30,7 +32,7 @@ $app->group('', function () use ($app, $container) {
         $app->get('/twierdza/{id}', FortressController::class . ':index')->setName('building.fortress');
         $app->get('/kopalnia-zlota/{id}', GoldMineController::class . ':index')->setName('building.gold_mine');
         $app->get('/farma/{id}', FarmController::class . ':index')->setName('building.farm');
-        $app->get('/koszary/{id}', FarmController::class . ':index')->setName('building.barrack');
+        $app->get('/koszary/{id}', BarrackController::class . ':index')->setName('building.barrack');
 
         $app->get('/[{id:[0-9]+}]', VillagesController::class . ':show')->setName('villages.show');
     })->add(new \App\Middleware\UserIsOwnerOfVillageMiddleware($container));

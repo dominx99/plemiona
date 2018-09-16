@@ -53,6 +53,7 @@ class TimingRepository extends AbstractRepository
             'type'      => 'building',
             'active'    => 0,
             'time'      => $building->time,
+            'level'     => $building->pivot->building_level + 1,
         ]);
     }
 

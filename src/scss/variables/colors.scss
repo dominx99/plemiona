@@ -9,6 +9,7 @@ $pink: #e91e63;
 $green: green;
 
 $colors: (
+    ('yellow', yellow),
     ('primary', $main),
     ('secondary', lighten($main, 20)),
     ('success', $green),
