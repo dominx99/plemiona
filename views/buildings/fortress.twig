@@ -22,7 +22,7 @@
                         <td>{{ building.pivot.building_level }}</td>
                         <td>{{ building.cost_upgrade }}</td>
                         <td class="text-center">
-                            <button class="btn btn-secondary">
+                            <button class="btn btn-secondary upgrade-building" data-building-id="{{ building.id }}" data-village-id="{{ village.id }}">
                                 <span>{{ building.pivot.building_level > 0 ? 'Ulepsz' : 'Rozbuduj' }}</span>
                             </button>
                         </td>

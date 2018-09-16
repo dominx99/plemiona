@@ -42,10 +42,17 @@ class TimingRepository extends AbstractRepository
             return false;
         }
 
+        if (!$village->hasEnoughGoldForBuilding($building)) {
+            return false;
+        }
+
+        $village->decrement('gold', $building->cost_upgrade);
+
         return $village->buildingTimings()->create([
             'object_id' => $building->id,
             'type'      => 'building',
             'active'    => 0,
+            'time'      => $building->time,
         ]);
     }
 
@@ -68,8 +75,8 @@ class TimingRepository extends AbstractRepository
         return true;
     }
 
-    public function getLastBuildingTiming()
+    public function getLastBuildingTiming(Village $village)
     {
-        return $village->buildingTimings()->orderBy('created_at', 'desc')->first();
+        return $village->buildingTimings()->orderBy('created_at')->first();
     }
 }

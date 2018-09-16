@@ -8,4 +8,5 @@ window.axios = axios;
 
 import Village from './components/Village';
 
+window.intervals = [];
 window.village = new Village();

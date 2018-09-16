@@ -31,8 +31,8 @@ class UserObserver
     {
         $this->villages = $villages;
 
-        $this->gold = $config->get('game.food_at_start');
-        $this->food = $config->get('game.gold_at_start');
+        $this->gold = $config->get('game.gold_at_start');
+        $this->food = $config->get('game.food_at_start');
     }
 
     /**

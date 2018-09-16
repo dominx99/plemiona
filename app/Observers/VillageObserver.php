@@ -78,7 +78,7 @@ class VillageObserver
         $village->increment('food', $food);
 
         $this->buildingUpgrador->upgradeForVillage($village);
-        // $this->buildingUpgrador->setNewActive($village);
+        $this->buildingUpgrador->setNewActive($village);
     }
 
     /**

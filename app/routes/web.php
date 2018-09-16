@@ -3,9 +3,12 @@
 use App\Controllers\AuthController;
 use App\Controllers\FortressController;
 use App\Controllers\GoldMineController;
+use App\Controllers\PrepareDatabaseController;
 use App\Controllers\VillagesController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\GuestMiddleware;
+
+$app->get('/prepare', PrepareDatabaseController::class . ':prepare');
 
 $app->group('', function () use ($app) {
     $app->get('/login', AuthController::class . ':loginForm')->setName('auth.login');
@@ -17,6 +20,9 @@ $app->group('', function () use ($app) {
 
 $app->group('', function () use ($app, $container) {
     $app->get('/logout', AuthController::class . ':logout')->setName('auth.logout');
+
+    // ! remove this line
+    $app->get('/remove', AuthController::class . ':remove')->setName('user.remove');
 
     $app->get('/villages', VillagesController::class . ':index')->setName('villages.select');
 

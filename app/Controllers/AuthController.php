@@ -86,4 +86,20 @@ class AuthController extends Controller
 
         return (new Response())->withRedirect($this->router->pathFor('auth.login'));
     }
+
+    // ! remove this function before production
+    public function remove()
+    {
+        $user = $this->auth->user();
+
+        foreach ($user->villages as $village) {
+            $village->buildings()->detach();
+            $village->timings()->delete();
+
+            $village->delete();
+        }
+
+        $user->delete();
+        $this->auth->logout();
+    }
 }

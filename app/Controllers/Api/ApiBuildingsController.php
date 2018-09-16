@@ -3,6 +3,7 @@
 namespace App\Controllers\Api;
 
 use App\Controllers\Controller;
+use Respect\Validation\Validator as v;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -10,7 +11,16 @@ class ApiBuildingsController extends Controller
 {
     public function upgrade(Request $request, Response $response)
     {
-        // TODO: add validation
+        $validation = $this->validator->validate($request, [
+            'village_id'  => v::notEmpty(),
+            'building_id' => v::notEmpty(),
+        ]);
+
+        if ($validation->failed()) {
+            return $response->withJson([
+                'error' => 'Przesłano złe parametry',
+            ]);
+        }
 
         if (!$village = $this->villages->find($request->getParam('village_id'))) {
             return $response->withJson([
@@ -33,6 +43,12 @@ class ApiBuildingsController extends Controller
         if (!$village->buildingCopeRequirements($building)) {
             return $response->withJson([
                 'error' => 'Nie spełniasz wymagan do ulepszenia tego budynku',
+            ]);
+        }
+
+        if (!$village->hasEnoughGoldForBuilding($building)) {
+            return $response->withJson([
+                'error' => 'Nie masz wystarczająco golda',
             ]);
         }
 

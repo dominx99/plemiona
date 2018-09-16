@@ -26,6 +26,10 @@ class Config
         }
 
         foreach ($pieces as $piece) {
+            if (!isset($result[$piece])) {
+                return false;
+            }
+
             $result = $result[$piece];
         }
 

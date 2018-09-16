@@ -10,8 +10,14 @@ class Timing extends Model
         'done_at',
         'type',
         'object_id',
+        'time',
         'active',
     ];
+
+    public function building()
+    {
+        return $this->belongsTo(Building::class, 'object_id');
+    }
 
     /**
      * @param string $time

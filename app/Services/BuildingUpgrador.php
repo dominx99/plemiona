@@ -59,10 +59,16 @@ class BuildingUpgrador
      */
     public function setNewActive(Village $village): void
     {
-        if ($this->timings->getActiveBuildingsCount($village) === 0) {
-            $timing = $this->timings->getLastBuildingTiming($village);
+        if (
+            $active = $this->timings->getActiveBuildingsCount($village) === 0 &&
+            $all = $this->timings->getAllBuildingsCount($village) > 0
+        ) {
 
-            $timing->setActive();
+            if ($timing = $this->timings->getLastBuildingTiming($village)) {
+                $building = $this->buildings->findByVillage($village, $timing->object_id);
+                $timing->setActive($building->done_at);
+            }
+
         }
     }
 }

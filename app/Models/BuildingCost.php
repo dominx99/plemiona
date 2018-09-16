@@ -10,5 +10,6 @@ class BuildingCost extends Model
         'building_id',
         'level',
         'value',
+        'time',
     ];
 }

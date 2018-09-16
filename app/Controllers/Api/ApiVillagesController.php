@@ -22,9 +22,15 @@ class ApiVillagesController extends Controller
             ]);
         }
 
+        $village = $this->villages->find($request->getParam('id'), [
+            'buildingTimings' => function ($query) {
+                $query->with('building');
+            }
+        ]);
+
         return $response->withJson([
             'status'  => 'success',
-            'village' => $this->villages->find($request->getParam('id')),
+            'village' => $village,
         ]);
     }
 }

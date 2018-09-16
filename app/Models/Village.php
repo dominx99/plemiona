@@ -81,7 +81,7 @@ class Village extends Model
      */
     public function buildingCopeRequirements(Building $building): bool
     {
-        foreach ($building->requirements as $requirement) {
+        foreach ($building->requirementsByLevel as $requirement) {
             $level = $villageBuildingLevel = $this->getBuildingLevelById($requirement->building_id);
 
             if ($level < $requirement->level) {
@@ -90,5 +90,14 @@ class Village extends Model
         }
 
         return true;
+    }
+
+    /**
+     * @param \App\Models\Building $building
+     * @return boolean
+     */
+    public function hasEnoughGoldForBuilding(Building $building): bool
+    {
+        return $this->gold > $building->cost_upgrade;
     }
 }

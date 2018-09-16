@@ -29,6 +29,15 @@ class Building extends Model
 
     public function requirements()
     {
+        return $this->morphMany(Requirement::class, 'requirementable');
+    }
+
+    public function requirementsByLevel()
+    {
+        if (!$this->hasPivot()) {
+            return null;
+        }
+
         return $this->morphMany(Requirement::class, 'requirementable')->where('requirementable_level', $this->pivot->building_level);
     }
 
@@ -36,11 +45,19 @@ class Building extends Model
 
     public function getCostAttribute()
     {
+        if (!$this->hasPivot()) {
+            return null;
+        }
+
         return $this->costs()->where('level', $this->pivot->building_level)->first()->value;
     }
 
     public function getCostUpgradeAttribute()
     {
+        if (!$this->hasPivot()) {
+            return null;
+        }
+
         if ($this->canUpgrade()) {
             return $this->costs()->where('level', $this->pivot->building_level + 1)->first()->value;
         }
@@ -53,13 +70,12 @@ class Building extends Model
         return $this->canUpgrade();
     }
 
-    public function canUpgrade()
-    {
-        return $this->costs()->where('level', $this->pivot->building_level + 1)->exists();
-    }
-
     public function getTimeAttribute()
     {
+        if (!$this->hasPivot()) {
+            return null;
+        }
+
         if ($this->canUpgrade()) {
             return $this->costs()->where('level', $this->pivot->building_level + 1)->first()->time;
         }
@@ -69,6 +85,10 @@ class Building extends Model
 
     public function getDoneAtAttribute()
     {
+        if (!$this->hasPivot()) {
+            return null;
+        }
+
         if ($this->canUpgrade()) {
             $now  = Carbon::now();
             $time = $this->costs()->where('level', $this->pivot->building_level + 1)->first()->time;
@@ -77,6 +97,20 @@ class Building extends Model
         }
 
         return null;
+    }
+
+    public function canUpgrade()
+    {
+        if (!$this->hasPivot()) {
+            return null;
+        }
+
+        return $this->costs()->where('level', $this->pivot->building_level + 1)->exists();
+    }
+
+    public function hasPivot()
+    {
+        return isset($this->pivot);
     }
 
     /** OTHERS */
