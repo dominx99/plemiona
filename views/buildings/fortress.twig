@@ -20,7 +20,10 @@
             {% for building in buildings %}
                 <tr>
                     <td>
-                        <a href="{{ path_for('building.' ~ building.type, {id: village.id}) }}">{{ building.name }}</a>
+                        <a href="{{ path_for('building.' ~ building.type, {id: village.id}) }}">{{ building.name }}</a><br>
+                        {% for requirement in building.requirementsByLevel %}
+                            <p class="secondary small my-2">{{ requirement.building.name }} {{ requirement.level }}</p>
+                        {% endfor %}
                     </td>
                     <td>{{ building.pivot.building_level }}</td>
                     <td>{{ building.cost_upgrade }}</td>

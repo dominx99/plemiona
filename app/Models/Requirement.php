@@ -18,4 +18,9 @@ class Requirement extends Model
     {
         return $this->morphTo();
     }
+
+    public function building()
+    {
+        return $this->belongsTo(Building::class);
+    }
 }
