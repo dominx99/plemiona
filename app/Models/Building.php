@@ -10,6 +10,7 @@ class Building extends Model
     protected $fillable = [
         'name',
         'type',
+        'color',
     ];
 
     protected $appends = [

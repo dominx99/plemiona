@@ -3,20 +3,24 @@
 return [
     'all_buildings'      => [
         0 => [
-            'type' => 'fortress',
-            'name' => 'Twierdza',
+            'type'  => 'fortress',
+            'name'  => 'Twierdza',
+            'color' => 'yellow',
         ],
         1 => [
-            'type' => 'gold_mine',
-            'name' => 'Kopalnia złota',
+            'type'  => 'gold_mine',
+            'name'  => 'Kopalnia złota',
+            'color' => 'yellow',
         ],
         2 => [
-            'type' => 'farm',
-            'name' => 'Farma',
+            'type'  => 'farm',
+            'name'  => 'Farma',
+            'color' => 'yellow',
         ],
         3 => [
-            'type' => 'barrack',
-            'name' => 'Koszary',
+            'type'  => 'barrack',
+            'name'  => 'Koszary',
+            'color' => 'yellow',
         ],
     ],
 
