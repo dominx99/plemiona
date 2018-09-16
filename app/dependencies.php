@@ -58,6 +58,10 @@ $container['timings'] = function ($container) {
     return new \App\Repositories\TimingRepository($container);
 };
 
+$container['armies'] = function ($container) {
+    return new \App\Repositories\ArmyRepository($container);
+};
+
 $container['buildingUpgrador'] = function ($container) {
     return new \App\Services\BuildingUpgrador($container);
 };

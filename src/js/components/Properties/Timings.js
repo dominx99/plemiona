@@ -1,6 +1,6 @@
-export default class BuildingTimings {
-    constructor() {
-        
+export default class Timings {
+    constructor(type) {
+        this.type = type;
     }
 
     set(timings) {
@@ -8,7 +8,7 @@ export default class BuildingTimings {
     }
 
     buildTimings(timings) {
-        let list = $('.timings');
+        let list = $('#' + this.type);
         list.html('');
 
         timings.map(timing => {
@@ -19,18 +19,21 @@ export default class BuildingTimings {
     }
 
     buildTiming(timing) {
-        console.log(timing);
         let el = $('<div></div>').addClass('timing');
-        let name = $('<div></div>').addClass('name').text(timing.building.name + ' lv.' + timing.level);
 
+        let fullName = timing[this.type].name;
+        fullName = this.appendLevel(fullName, timing.level);
+        fullName = this.appendAmount(fullName, timing.amount);
+
+        let name = $('<div></div>').addClass('name').text(fullName);
         let time = $('<div></div>').addClass('time');
         let seconds = 0;
 
         if (timing.active) {
             let now = new Date();
-            let buildingTime = new Date(timing.done_at);
+            let timingTime = new Date(timing.done_at);
 
-            seconds = Math.ceil((buildingTime - now) / 1000);
+            seconds = Math.ceil((timingTime - now) / 1000);
             time.attr('id', 'time_' + timing.id).text(seconds);
         }
 
@@ -76,5 +79,21 @@ export default class BuildingTimings {
         }
 
         return --number;
+    }
+
+    appendAmount(name, amount) {
+        if (amount) {
+            return name + ' x ' + amount;
+        }
+        
+        return name;
+    }
+
+    appendLevel(name, level) {
+        if (level) {
+            return name + ' lv.' + level;
+        }
+
+        return name;
     }
 }

@@ -12,10 +12,23 @@ class Army extends Model
         'power',
         'defense',
         'capacity',
+        'cost',
+        'time',
     ];
 
     public function villages()
     {
         return $this->hasMany(Village::class);
+    }
+
+    /**
+     * @param integer $amount
+     * @return void
+     */
+    public function increaseAmount(int $amount): void
+    {
+        $this->pivot->update([
+            'amount' => $this->pivot->amount + $amount,
+        ]);
     }
 }

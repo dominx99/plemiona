@@ -20,6 +20,11 @@ class Village extends Model
         return $this->belongsToMany(Building::class)->withPivot('building_level');
     }
 
+    public function armies()
+    {
+        return $this->belongsToMany(Army::class)->withPivot('amount');
+    }
+
     public function timings()
     {
         return $this->hasMany(Timing::class);
@@ -99,5 +104,15 @@ class Village extends Model
     public function hasEnoughGoldForBuilding(Building $building): bool
     {
         return $this->gold > $building->cost_upgrade;
+    }
+
+    /**
+     * @param \App\Models\Army $army
+     * @param integer $amount
+     * @return boolean
+     */
+    public function hasEnoughFoodForArmy(Army $army, int $amount): bool
+    {
+        return $this->food > ($army->cost * $amount);
     }
 }

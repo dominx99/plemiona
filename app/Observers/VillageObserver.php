@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Config;
 use App\Models\Village;
 use App\Repositories\BuildingRepository;
+use App\Services\ArmyRecruiter;
 use App\Services\BuildingUpgrador;
 use App\Services\FoodCalculator;
 use App\Services\GoldCalculator;
@@ -21,6 +22,11 @@ class VillageObserver
      * @var \App\Services\BuildingUpgrador
      */
     protected $buildingUpgrador;
+
+    /**
+     * @var \App\Services\ArmyRecruiter
+     */
+    protected $armyRecruiter;
 
     /**
      * @var \App\Services\GoldCalculator $gold
@@ -40,16 +46,23 @@ class VillageObserver
     /**
      * @param \App\Services\GoldCalculator $gold
      * @param \App\Services\FoodCalculator $food
+     * @param \App\Repositories\BuildingRepository $buildingRepository
+     * @param \App\Services\BuildingUpgrador $buildingUpgrador
+     * @param \App\Services\ArmyRecruiter $armyRecruiter
+     * @param \App\Config $config
      */
     public function __construct(
         GoldCalculator $gold,
         FoodCalculator $food,
         BuildingRepository $buildingRepository,
         BuildingUpgrador $buildingUpgrador,
+        ArmyRecruiter $armyRecruiter,
         Config $config
     ) {
         $this->buildingRepository = $buildingRepository;
         $this->buildingUpgrador   = $buildingUpgrador;
+
+        $this->armyRecruiter = $armyRecruiter;
 
         $this->gold = $gold;
         $this->food = $food;
@@ -79,6 +92,9 @@ class VillageObserver
 
         $this->buildingUpgrador->upgradeForVillage($village);
         $this->buildingUpgrador->setNewActive($village);
+
+        $this->armyRecruiter->recruitForVillage($village);
+        $this->armyRecruiter->setNewActive($village);
     }
 
     /**

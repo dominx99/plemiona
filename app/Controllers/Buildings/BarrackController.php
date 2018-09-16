@@ -21,6 +21,7 @@ class BarrackController extends Controller
 
         return $this->view->render($response, 'buildings/barrack.twig', [
             'building' => $this->buildings->findByVillageAndType($village, 'barrack'),
+            'armies'   => $village->armies,
         ]);
     }
 }

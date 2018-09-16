@@ -13,11 +13,17 @@ class Timing extends Model
         'time',
         'active',
         'level',
+        'amount',
     ];
 
     public function building()
     {
         return $this->belongsTo(Building::class, 'object_id');
+    }
+
+    public function army()
+    {
+        return $this->belongsTo(Army::class, 'object_id');
     }
 
     /**

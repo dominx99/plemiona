@@ -17,8 +17,6 @@
         }
 
         td {
-            vertical-align: top;
-
             a {
                 color: $light;
                 text-decoration: none;
@@ -28,5 +26,14 @@
                 }
             }
         }
+    }
+
+    input {
+        border: none;
+        background-color: rgba(lighten($main, 10), .5);
+        padding: .5rem;
+        color: $light;
+        border-radius: 4px;
+        box-shadow: 0 0 1px 1px rgba($dark, .3);
     }
 }

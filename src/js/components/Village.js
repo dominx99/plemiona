@@ -1,7 +1,8 @@
 import Food from './Properties/Food';
 import Gold from './Properties/Gold';
-import BuildingTimings from './Properties/BuildingTimings';
+import Timings from './Properties/Timings';
 import Upgrador from './Properties/Upgrador';
+import Recruiter from './Properties/Recruiter';
 
 export default class Village {
     constructor() {
@@ -9,8 +10,12 @@ export default class Village {
 
         this.food = new Food();
         this.gold = new Gold();
-        this.buildingTimings = new BuildingTimings();
+
+        this.buildingTimings = new Timings('building');
+        this.armyTimings = new Timings('army');
+
         this.upgrador = new Upgrador();
+        this.recruiter = new Recruiter();
         
         this.bind();
     }
@@ -28,6 +33,7 @@ export default class Village {
             this.gold.set(res.data.village.gold);
             this.food.set(res.data.village.food);
             this.buildingTimings.set(res.data.village.building_timings);
+            this.armyTimings.set(res.data.village.army_timings);
         }).catch(e => {
             console.log(e);
         });
