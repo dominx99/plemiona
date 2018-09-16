@@ -37,6 +37,8 @@ $container['view'] = function ($container) {
     $view->addExtension(new Slim\Views\TwigExtension($container->get('router'), $basePath));
     $view->addExtension(new \App\Twig\ConfigExtension($container->get('config')));
 
+    $view->getEnvironment()->addGlobal('auth', $container->get('auth'));
+
     return $view;
 };
 

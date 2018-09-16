@@ -5,6 +5,21 @@
     background-color: rgba(darken($main, 10), .5);
     font-size: 120%;
     box-shadow: -1px 0 1px 0 rgba($dark, .3);
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+
+    .map {
+        margin-top: auto;
+        padding: 1rem;
+        text-align: center;
+        background-color: darken($main, 8);
+        box-shadow: 0 -1px 1px 1px rgba($dark, .5);
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
 
     .header {
         display: block;
@@ -19,8 +34,12 @@
     }
 
     .section {
-        margin: 2rem 0;
+        margin-bottom: 2rem;
         background-color: lighten($main, 0);
+
+        &:first-of-type {
+            margin-top: 2rem;
+        }
         
         ul.properties {
             list-style-type: none;

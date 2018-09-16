@@ -80,4 +80,11 @@ class VillagesController extends Controller
 
         return false;
     }
+
+    public function map(): ResponseInterface
+    {
+        return $this->view->render(new Response(), 'villages/map.twig', [
+            'villages' => $this->villages->get(),
+        ]);
+    }
 }

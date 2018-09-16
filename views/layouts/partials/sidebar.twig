@@ -1,17 +1,23 @@
 <div class="sidebar">
-    <a href="{{ path_for('villages.show', {id: village.id}) }}" class="header">{{ village.name }}</a>
-    <div class="section">
-        <ul class="properties">
-            <li>
-                <div>gold</div>
-                <div id="gold">{{ village.gold }}</div>
-            </li>
-            <li>
-                <div>food</div>
-                <div id="food">{{ village.food }}</div>
-            </li>
-        </ul>
-    </div>
+    {% if village %}
+        <a href="{{ path_for('villages.show', {id: village.id}) }}" class="header">{{ village.name }}</a>
+        <div class="section">
+            <ul class="properties">
+                <li>
+                    <div>gold</div>
+                    <div id="gold">{{ village.gold }}</div>
+                </li>
+                <li>
+                    <div>food</div>
+                    <div id="food">{{ village.food }}</div>
+                </li>
+            </ul>
+        </div>
+    {% else %}
+        {% for village in auth.user.villages %}
+            <a href="{{ path_for('villages.show', {id: village.id}) }}" class="header">{{ village.name }}</a>
+        {% endfor %}
+    {% endif %}
 
     <div class="section timings">
         {# <div class="timing">
@@ -27,4 +33,6 @@
             <div class="time">10s</div>
         </div> #}
     </div>
+
+    <a href="{{ path_for('map') }}" class="map">mapa</a>
 </div>

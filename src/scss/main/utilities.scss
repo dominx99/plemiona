@@ -18,12 +18,13 @@
     display: none;
 }
 
-.m-0 {
-    margin: 0;
-}
+a {
+    color: $light;
+    text-decoration: none;
 
-.mb-0 {
-    margin-bottom: 0;
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 @function text-color($color) {

@@ -13,6 +13,7 @@
                 <th>nazwa</th>
                 <th>level</th>
                 <th>koszt ulepszenia</th>
+                <th>Czas (sekundy)</th>
                 <th></th>
             </tr>
         </thead>
@@ -27,6 +28,7 @@
                     </td>
                     <td>{{ building.pivot.building_level }}</td>
                     <td>{{ building.cost_upgrade }}</td>
+                    <td>{{ building.time }}</td>
                     <td class="text-center">
                         <button class="btn btn-secondary upgrade-building" data-building-id="{{ building.id }}" data-village-id="{{ village.id }}">
                             <span>{{ building.pivot.building_level > 0 ? 'Ulepsz' : 'Rozbuduj' }}</span>
@@ -37,3 +39,7 @@
         </tbody>
     </table>
 {% endblock content %}
+
+{% block js %}
+    <script src="{{ base_url() }}/dist/js/village.min.js"></script>
+{% endblock js %}

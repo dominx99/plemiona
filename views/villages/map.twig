@@ -1,0 +1,28 @@
+{% extends "layouts/game.twig" %}
+
+{% block title %} Mapa {% endblock %}
+
+{% block content %}
+    <div class="mb-5">
+        <h2>Twoje wioski</h2>
+        {% for village in auth.user.villages %}
+            <p>
+                <a href="{{ path_for('villages.show', {id: village.id}) }}">
+                    <span>{{ village.name }}</span>
+                </a>
+                <span>x: {{ village.x }}</span>
+                <span>y: {{ village.y }}</span>
+            </p>
+        {% endfor %}
+    </div>
+    <div>
+        <h2>Wioski innych</h2>
+        {% for village in villages if village.isOwner(auth.user.id) == false %}
+            <p>
+                <a href="#">{{ village.name }}</a>
+                <span>x: {{ village.x }}</span>
+                <span>x: {{ village.y }}</span> 
+            </p>
+        {% endfor %}
+    </div>
+{% endblock content %}

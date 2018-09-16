@@ -29,6 +29,8 @@ $app->group('', function () use ($app, $container) {
 
     $app->get('/villages', VillagesController::class . ':index')->setName('villages.select');
 
+    $app->get('/mapa', VillagesController::class . ':map')->setName('map');
+
     $app->group('', function () use ($app) {
         $app->get('/twierdza/{id}', FortressController::class . ':index')->setName('building.fortress');
         $app->get('/kopalnia-zlota/{id}', GoldMineController::class . ':index')->setName('building.gold_mine');

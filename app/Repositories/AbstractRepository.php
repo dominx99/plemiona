@@ -39,6 +39,12 @@ abstract class AbstractRepository
         return $model::find($id);
     }
 
+    public function get()
+    {
+        $model = $this->model();
+        return $model::get();
+    }
+
     /**
      * @return string
      */
