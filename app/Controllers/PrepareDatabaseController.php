@@ -4,10 +4,34 @@ namespace App\Controllers;
 
 use App\Models\Building;
 use App\Models\Requirement;
+use App\Models\User;
 
 // ! remove this class before production
 class PrepareDatabaseController extends Controller
 {
+    public function truncate()
+    {
+        $this->removeAllData();
+    }
+
+    protected function removeAllData()
+    {
+        foreach (User::get() as $user) {
+
+            foreach ($user->villages as $village) {
+                $village->buildings()->detach();
+
+                $village->delete();
+            }
+
+            $user->delete();
+        }
+
+        $this->removePreviousData();
+
+        $this->auth->logout();
+    }
+
     public function prepare()
     {
         $this->removePreviousData();

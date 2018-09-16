@@ -11,6 +11,7 @@ use App\Middleware\AuthMiddleware;
 use App\Middleware\GuestMiddleware;
 
 $app->get('/prepare', PrepareDatabaseController::class . ':prepare');
+$app->get('/truncate', PrepareDatabaseController::class . ':truncate');
 
 $app->group('', function () use ($app) {
     $app->get('/login', AuthController::class . ':loginForm')->setName('auth.login');
