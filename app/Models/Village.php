@@ -45,6 +45,15 @@ class Village extends Model
     }
 
     /**
+     * @param integer $id
+     * @return integer
+     */
+    public function getBuildingLevelById(int $id): int
+    {
+        return $this->buildings()->where('buildings.id', $id)->first()->pivot->building_level;
+    }
+
+    /**
      * @param integer $userId
      * @return boolean
      */
@@ -64,5 +73,22 @@ class Village extends Model
             'type'      => 'building',
             'done_at'   => $building->done_at,
         ]);
+    }
+
+    /**
+     * @param \App\Models\Building $building
+     * @return boolean
+     */
+    public function buildingCopeRequirements(Building $building): bool
+    {
+        foreach ($building->requirements as $requirement) {
+            $level = $villageBuildingLevel = $this->getBuildingLevelById($requirement->building_id);
+
+            if ($level < $requirement->level) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

@@ -27,6 +27,11 @@ class Building extends Model
         return $this->hasMany(BuildingCost::class);
     }
 
+    public function requirements()
+    {
+        return $this->morphMany(Requirement::class, 'requirementable')->where('requirementable_level', $this->pivot->building_level);
+    }
+
     /** ATTRIBUTES */
 
     public function getCostAttribute()
@@ -68,7 +73,7 @@ class Building extends Model
             $now  = Carbon::now();
             $time = $this->costs()->where('level', $this->pivot->building_level + 1)->first()->time;
 
-            return $now->addSeconds(10)->format('Y-m-d H:i:s');
+            return $now->addSeconds($time)->format('Y-m-d H:i:s');
         }
 
         return null;

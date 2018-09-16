@@ -10,6 +10,8 @@ class ApiBuildingsController extends Controller
 {
     public function upgrade(Request $request, Response $response)
     {
+        // TODO: add validation
+
         if (!$village = $this->villages->find($request->getParam('village_id'))) {
             return $response->withJson([
                 'error' => 'Nie znaleziono wioski o tym ID' . $request->getParam('village_id'),
@@ -25,6 +27,12 @@ class ApiBuildingsController extends Controller
         if (!$building->canUpgrade()) {
             return $response->withJson([
                 'error' => 'Budynek osiągnął maksymalny poziom',
+            ]);
+        }
+
+        if (!$village->buildingCopeRequirements($building)) {
+            return $response->withJson([
+                'error' => 'Nie spełniasz wymagan do ulepszenia tego budynku',
             ]);
         }
 
