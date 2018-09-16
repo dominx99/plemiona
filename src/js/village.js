@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost/plemiona/api';
+axios.defaults.baseURL = '/plemiona/api';
 
 window.$ = $;
 window.axios = axios;
