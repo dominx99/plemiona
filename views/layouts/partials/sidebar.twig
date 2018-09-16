@@ -1,5 +1,5 @@
 <div class="sidebar">
-    <div class="header">{{ village.name }}</div>
+    <a href="{{ path_for('villages.show', {id: village.id}) }}" class="header">{{ village.name }}</a>
     <div class="section">
         <ul class="properties">
             <li>

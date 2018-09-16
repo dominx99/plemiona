@@ -8,6 +8,10 @@
     border-left: 1px solid darken($main, 10);
 
     .header {
+        display: block;
+        color: $light;
+        text-decoration: none;
+        
         padding: 1rem;
         text-align: center;
         font-size: 120%;
