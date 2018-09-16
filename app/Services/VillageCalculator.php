@@ -16,5 +16,5 @@ interface VillageCalculator
      * @param integer $level
      * @return integer
      */
-    public function calculateByLevel(int $level): int;
+    public function calculateByLevel(Village $village, int $level = null): int;
 }
