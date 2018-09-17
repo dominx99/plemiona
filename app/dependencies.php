@@ -66,6 +66,14 @@ $container['buildingUpgrador'] = function ($container) {
     return new \App\Services\BuildingUpgrador($container);
 };
 
+$container['goldCalculator'] = function ($container) {
+    return new \App\Services\GoldCalculator($container->get('config'));
+};
+
+$container['foodCalculator'] = function ($container) {
+    return new \App\Services\FoodCalculator($container->get('config'));
+};
+
 Village::observe(VillageObserver::class);
 User::observe(UserObserver::class);
 

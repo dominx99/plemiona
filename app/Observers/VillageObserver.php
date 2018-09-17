@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Config;
 use App\Models\Village;
+use App\Repositories\ArmyRepository;
 use App\Repositories\BuildingRepository;
 use App\Services\ArmyRecruiter;
 use App\Services\BuildingUpgrador;
@@ -24,6 +25,11 @@ class VillageObserver
     protected $buildingUpgrador;
 
     /**
+     * @var \App\Repositories\ArmyRepository
+     */
+    protected $armyRepository;
+
+    /**
      * @var \App\Services\ArmyRecruiter
      */
     protected $armyRecruiter;
@@ -39,9 +45,9 @@ class VillageObserver
     protected $food;
 
     /**
-     * @var array
+     * @var \App\Config
      */
-    protected $buildings;
+    protected $config;
 
     /**
      * @param \App\Services\GoldCalculator $gold
@@ -56,18 +62,20 @@ class VillageObserver
         FoodCalculator $food,
         BuildingRepository $buildingRepository,
         BuildingUpgrador $buildingUpgrador,
+        ArmyRepository $armyRepository,
         ArmyRecruiter $armyRecruiter,
         Config $config
     ) {
         $this->buildingRepository = $buildingRepository;
         $this->buildingUpgrador   = $buildingUpgrador;
 
-        $this->armyRecruiter = $armyRecruiter;
+        $this->armyRepository = $armyRepository;
+        $this->armyRecruiter  = $armyRecruiter;
 
         $this->gold = $gold;
         $this->food = $food;
 
-        $this->buildings = $config->get('buildings.buildings_at_start');
+        $this->config = $config;
     }
 
     /**
@@ -103,10 +111,16 @@ class VillageObserver
      */
     public function created(Village $village): void
     {
-        foreach ($this->buildings as $type => $building) {
+        foreach ($this->config->get('buildings.buildings_at_start') as $type => $building) {
             $buildingByType = $this->buildingRepository->findByType($type);
 
             $village->buildings()->attach($buildingByType->id, ['building_level' => $building['level']]);
+        }
+
+        foreach ($this->config->get('armies.armies_at_start') as $type) {
+            $armyByType = $this->armyRepository->findByType($type);
+
+            $village->armies()->attach($armyByType->id, ['amount' => 0]);
         }
     }
 }

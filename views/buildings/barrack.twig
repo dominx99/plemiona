@@ -3,14 +3,8 @@
 {% block title %}{{ building.name }}{% endblock title %}
 
 {% block content %}
-    <div class="alert alert-secondary mb-5">
-        <p>
-            Ulepszanie <span class="{{ building.color }}">{{ building.name }}</span> pozwala na rekrutację jednostek (jeszcze nie zaimplementowane)
-        </p>
-
-        <div>
-            {{ building | json_encode }}
-        </div>
+    <div class="alert alert-secondary mb-3">
+        Ulepszanie <span class="{{ building.color }}">{{ building.name }}</span> pozwala na rekrutację jednostek (jeszcze nie zaimplementowane)
     </div>
 
     <table class="table recruitment">

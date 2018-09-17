@@ -3,13 +3,44 @@
 {% block title %}{{ building.name }}{% endblock title %}
 
 {% block content %}
-    <div class="alert alert-secondary">
-        <p>
-            Ulepszanie <span class="{{ building.color }}">{{ building.name }}</span> przyśpiesza zdobywanie złota
-        </p>
+    <div class="alert alert-secondary mb-3">
+        Ulepszanie <span class="{{ building.color }}">{{ building.name }}</span> przyśpiesza zdobywanie złota
+    </div>
 
-        <div>
-            {{ building | json_encode }}
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table">
+                <thead>
+                    <tr class="header">
+                        <th></th>
+                        <th>teraz</th>
+                        <th>następny poziom</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>złota na sekundę</td>
+                        <td class="text-center">{{ now }}</td>
+                        <td class="text-center">{{ next_level }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <table class="table">
+                <thead>
+                    <tr class="header">
+                        <th>koszt ulepszenia</th>
+                        <th>{{ building.cost }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>czas ulepszania</td>
+                        <td>{{ building.time }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock content %}

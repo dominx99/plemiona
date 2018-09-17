@@ -1,6 +1,6 @@
 .table {
     width: 100%;
-    background-color: darken($main, 4);
+    background-color: lighten($main, 4);
     font-size: 120%;
     text-align: left;
     -webkit-border-horizontal-spacing: 0;
@@ -13,7 +13,7 @@
         }
 
         &.header {
-            background-color: darken($main, 8);
+            background-color: darken($main, 2);
         }
 
         td {

@@ -17,10 +17,19 @@ class GoldMineController extends Controller
      */
     public function index(Request $request, Response $response, array $params): ResponseInterface
     {
-        $village = $this->villages->find($params['id']);
+        $village  = $this->villages->find($params['id']);
+        $building = $this->buildings->findByVillageAndType($village, 'gold_mine');
+
+        $nextLevel = 'MAX';
+
+        if ($building->canUpgrade()) {
+            $nextLevel = $this->goldCalculator->calculateByLevel($village, $village->getBuildingLevel('gold_mine') + 1);
+        }
 
         return $this->view->render($response, 'buildings/gold_mine.twig', [
-            'building' => $this->buildings->findByVillageAndType($village, 'gold_mine'),
+            'building'   => $this->buildings->findByVillageAndType($village, 'gold_mine'),
+            'now'        => $this->goldCalculator->calculate($village),
+            'next_level' => $nextLevel,
         ]);
     }
 }
