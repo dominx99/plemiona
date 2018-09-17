@@ -21,7 +21,12 @@
         <tbody>
             {% for army in armies %}
                 <tr>
-                    <td>{{ army.name }}</td>
+                    <td>
+                        {{ army.name }}
+                        {% for requirement in army.requirements %}
+                            <p class="secondary small my-2">{{ requirement.building.name }} {{ requirement.level }}</p>
+                        {% endfor %}
+                    </td>
                     <td>{{ army.pivot.amount }}</td>
                     <td id="army-cost-{{ army.id }}">{{ army.cost }}</td>
                     <td id="army-time-{{ army.id }}">{{ army.time }}</td>
