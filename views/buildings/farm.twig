@@ -23,6 +23,11 @@
                         <td class="text-center">{{ now }}</td>
                         <td class="text-center">{{ next_level }}</td>
                     </tr>
+                    <tr>
+                        <td>level</td>
+                        <td class="text-center">{{ building.pivot.building_level }}</td>
+                        <td class="text-center">{{ building.can_upgrade ? building.pivot.building_level + 1 : 'MAX' }}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
