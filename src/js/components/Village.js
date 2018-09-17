@@ -23,7 +23,7 @@ export default class Village {
     bind() {
         this.update();
 
-        setInterval(() => this.update(), 5000);
+        // setInterval(() => this.update(), 5000);
     }
 
     update() {

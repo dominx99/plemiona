@@ -22,6 +22,21 @@ return [
             'name'  => 'Koszary',
             'color' => 'yellow',
         ],
+        4 => [
+            'type'  => 'smithy',
+            'name'  => 'Kuźnia',
+            'color' => 'yellow',
+        ],
+        5 => [
+            'type'  => 'stable',
+            'name'  => 'Stajnia',
+            'color' => 'yellow',
+        ],
+        6 => [
+            'type'  => 'armory',
+            'name'  => 'Zbrojownia',
+            'color' => 'yellow',
+        ],
     ],
 
     'buildings_at_start' => [
@@ -37,25 +52,49 @@ return [
         'barrack'   => [
             'level' => 0,
         ],
+        'smithy'    => [
+            'level' => 0.,
+        ],
+        'armory'    => [
+            'level' => 0,
+        ],
+        'stable'    => [
+            'level' => 0,
+        ],
     ],
 
     'gold_mine'          => [
-        'cost_ratio' => 1.618 * 50,
+        'cost_ratio' => 1.618 * 75,
         'time_ratio' => 0.618 * 5,
     ],
 
     'farm'               => [
-        'cost_ratio' => 1.618 * 50,
-        'time_ratio' => 0.618 * 4,
+        'cost_ratio' => 1.618 * 80,
+        'time_ratio' => 0.618 * 6,
     ],
 
     'fortress'           => [
-        'cost_ratio' => 1.618 * 250,
-        'time_ratio' => 0.618 * 5,
+        'cost_ratio' => 1.618 * 150,
+        'time_ratio' => 0.618 * 9,
     ],
 
     'barrack'            => [
-        'cost_ratio' => 1.618 * 500,
+        'cost_ratio' => 1.618 * 200,
         'time_ratio' => 0.618 * 7,
+    ],
+
+    'smithy'             => [
+        'cost_ratio' => 1.618 * 175,
+        'time_ratio' => 0.618 * 8,
+    ],
+
+    'armory'             => [
+        'cost_ratio' => 1.618 * 175,
+        'time_ratio' => 0.618 * 8,
+    ],
+
+    'stable'             => [
+        'cost_ratio' => 1.618 * 175,
+        'time_ratio' => 0.618 * 8,
     ],
 ];

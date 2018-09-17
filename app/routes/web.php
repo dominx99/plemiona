@@ -5,6 +5,7 @@ use App\Controllers\Buildings\BarrackController;
 use App\Controllers\Buildings\FarmController;
 use App\Controllers\Buildings\FortressController;
 use App\Controllers\Buildings\GoldMineController;
+use App\Controllers\Buildings\SmithyController;
 use App\Controllers\PrepareDatabaseController;
 use App\Controllers\VillagesController;
 use App\Middleware\AuthMiddleware;
@@ -37,6 +38,9 @@ $app->group('', function () use ($app, $container) {
         $app->get('/kopalnia-zlota/{id}', GoldMineController::class . ':index')->setName('building.gold_mine');
         $app->get('/farma/{id}', FarmController::class . ':index')->setName('building.farm');
         $app->get('/koszary/{id}', BarrackController::class . ':index')->setName('building.barrack');
+        $app->get('/kuznia/{id}', SmithyController::class . ':index')->setName('building.smithy');
+        $app->get('/zbrojownia/{id}', SmithyController::class . ':index')->setName('building.armory');
+        $app->get('/stajnia/{id}', SmithyController::class . ':index')->setName('building.stable');
 
         $app->get('/[{id:[0-9]+}]', VillagesController::class . ':show')->setName('villages.show');
     })->add(new \App\Middleware\UserIsOwnerOfVillageMiddleware($container));

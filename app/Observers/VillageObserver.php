@@ -6,6 +6,7 @@ use App\Config;
 use App\Models\Village;
 use App\Repositories\ArmyRepository;
 use App\Repositories\BuildingRepository;
+use App\Services\ArmyExpeditor;
 use App\Services\ArmyRecruiter;
 use App\Services\BuildingUpgrador;
 use App\Services\FoodCalculator;
@@ -33,6 +34,11 @@ class VillageObserver
      * @var \App\Services\ArmyRecruiter
      */
     protected $armyRecruiter;
+
+    /**
+     * @var \App\Services\ArmyExpeditor
+     */
+    protected $armyExpeditor;
 
     /**
      * @var \App\Services\GoldCalculator $gold
@@ -64,6 +70,7 @@ class VillageObserver
         BuildingUpgrador $buildingUpgrador,
         ArmyRepository $armyRepository,
         ArmyRecruiter $armyRecruiter,
+        ArmyExpeditor $armyExpeditor,
         Config $config
     ) {
         $this->buildingRepository = $buildingRepository;
@@ -71,6 +78,7 @@ class VillageObserver
 
         $this->armyRepository = $armyRepository;
         $this->armyRecruiter  = $armyRecruiter;
+        $this->armyExpeditor  = $armyExpeditor;
 
         $this->gold = $gold;
         $this->food = $food;
@@ -103,6 +111,8 @@ class VillageObserver
 
         $this->armyRecruiter->recruitForVillage($village);
         $this->armyRecruiter->setNewActive($village);
+
+        $this->armyExpeditor->endExpeditions($village);
     }
 
     /**

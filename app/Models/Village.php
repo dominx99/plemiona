@@ -40,6 +40,11 @@ class Village extends Model
         return $this->timings()->where('type', 'army');
     }
 
+    public function expeditions()
+    {
+        return $this->hasMany(Expedition::class);
+    }
+
     /**
      * @param string $building
      * @return integer
@@ -127,5 +132,68 @@ class Village extends Model
     public function hasEnoughFoodForArmy(Army $army, int $amount): bool
     {
         return $this->food > ($army->cost * $amount);
+    }
+
+    /**
+     * @param integer $capacity
+     * @return array
+     */
+    public function decreaseResourcesOnCapacity(int $capacity): array
+    {
+        $food = $capacity * 1 / 3;
+        $gold = $capacity * 2 / 3;
+
+        if ($this->food < $food) {
+            $food = $this->food;
+        }
+
+        if ($this->gold < $gold) {
+            $gold = $this->gold;
+        }
+
+        $this->decrement('food', $food);
+        $this->decrement('gold', $gold);
+
+        return [
+            'food' => $food,
+            'gold' => $gold,
+        ];
+    }
+
+    public function decreaseArmy(int $power): void
+    {
+        foreach ($this->armies()->orderBy('armies.power', 'desc')->get() as $army) {
+            $defense = $army->defense * $army->pivot->amount;
+            $diff    = $defense - $power;
+
+            if ($defense <= 0) {
+                continue;
+            }
+
+            if ($diff > 0) {
+                $amount = $diff / $army->defense;
+                $army->pivot->update(['amount' => $amount]);
+            } else if ($diff == 0) {
+                $army->pivot->update(['amount' => 0]);
+            } else {
+                $power = abs($diff);
+                $army->pivot->update(['amount' => 0]);
+            }
+        }
+    }
+
+    /**
+     * @param \App\Models\Army $army
+     * @return void
+     */
+    public function addArmies(expedition $expedition): void
+    {
+        foreach ($expedition->armies as $army) {
+            $villageArmy = $this->armies()->where('type', $army->type)->first();
+
+            var_dump($villageArmy->name);
+        }
+
+        die();
     }
 }
