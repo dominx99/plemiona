@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'armies'          => [
+    'all_armies'      => [
         [
             'type'     => 'pikeman',
-            'name'     => 'swordman',
+            'name'     => 'Pikinier',
             'power'    => 3,
             'defense'  => 7,
             'capacity' => 30,

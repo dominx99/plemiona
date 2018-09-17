@@ -87,7 +87,20 @@ class Village extends Model
     public function buildingCopeRequirements(Building $building): bool
     {
         foreach ($building->requirementsByLevel as $requirement) {
-            $level = $villageBuildingLevel = $this->getBuildingLevelById($requirement->building_id);
+            $level = $this->getBuildingLevelById($requirement->building_id);
+
+            if ($level < $requirement->level) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function armyCopeRequirements(Army $army): bool
+    {
+        foreach ($army->requirements as $requirement) {
+            $level = $this->getBuildingLevelById($requirement->building_id);
 
             if ($level < $requirement->level) {
                 return false;

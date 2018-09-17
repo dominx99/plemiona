@@ -41,6 +41,12 @@ class ApiArmiesController extends Controller
             ]);
         }
 
+        if (!$village->armyCopeRequirements($army)) {
+            return $response->withJson([
+                'error' => 'Nie spełniasz wymagan, żeby rekrutować to wojsko',
+            ]);
+        }
+
         if (!$village->hasEnoughFoodForArmy($army, $request->getParam('amount'))) {
             return $response->withJson([
                 'error' => 'Nie masz wystarczająco jedzenia :(',

@@ -21,6 +21,11 @@ class Army extends Model
         return $this->hasMany(Village::class);
     }
 
+    public function requirements()
+    {
+        return $this->morphMany(Requirement::class, 'requirementable');
+    }
+
     /**
      * @param integer $amount
      * @return void
