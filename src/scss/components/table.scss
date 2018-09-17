@@ -9,14 +9,32 @@
 
     tr {
         td, th {
-            padding: 1rem;
+            padding: .5rem 1rem;
+        }
+
+        &:first-of-type {
+            td {
+                padding-top: 1rem;
+            }
+        }
+
+        &:last-of-type {
+            td {
+                padding-bottom: 1rem;
+            }
         }
 
         &.header {
             background-color: darken($main, 2);
+
+            th {
+                padding: 1rem;
+            }
         }
 
         td {
+            vertical-align: baseline;
+
             a {
                 color: $light;
                 text-decoration: none;
