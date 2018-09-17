@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 16 Wrz 2018, 19:18
+-- Czas generowania: 17 Wrz 2018, 18:21
 -- Wersja serwera: 10.1.30-MariaDB
 -- Wersja PHP: 7.2.2
 
@@ -25,27 +25,36 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `plemiona_army`
+-- Struktura tabeli dla tabeli `plemiona_armies`
 --
 
-CREATE TABLE `plemiona_army` (
+CREATE TABLE `plemiona_armies` (
   `id` int(11) NOT NULL,
   `type` text CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
   `name` text CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
   `power` int(11) NOT NULL,
   `defense` int(11) NOT NULL,
   `capacity` int(11) NOT NULL,
+  `cost` int(11) NOT NULL,
+  `time` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Zrzut danych tabeli `plemiona_army`
+-- Struktura tabeli dla tabeli `plemiona_army_village`
 --
 
-INSERT INTO `plemiona_army` (`id`, `type`, `name`, `power`, `defense`, `capacity`, `created_at`, `updated_at`) VALUES
-(1, 'pikeman', 'Pikinier', 3, 7, 30, '2018-09-15 20:26:10', '2018-09-15 20:38:15'),
-(2, 'swordman', 'Miecznik', 5, 5, 50, '2018-09-15 20:27:02', '2018-09-15 20:38:17');
+CREATE TABLE `plemiona_army_village` (
+  `id` int(11) NOT NULL,
+  `village_id` int(11) NOT NULL,
+  `army_id` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -167,9 +176,15 @@ CREATE TABLE `plemiona_villages` (
 --
 
 --
--- Indeksy dla tabeli `plemiona_army`
+-- Indeksy dla tabeli `plemiona_armies`
 --
-ALTER TABLE `plemiona_army`
+ALTER TABLE `plemiona_armies`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeksy dla tabeli `plemiona_army_village`
+--
+ALTER TABLE `plemiona_army_village`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -219,28 +234,34 @@ ALTER TABLE `plemiona_villages`
 --
 
 --
--- AUTO_INCREMENT dla tabeli `plemiona_army`
+-- AUTO_INCREMENT dla tabeli `plemiona_armies`
 --
-ALTER TABLE `plemiona_army`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `plemiona_armies`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `plemiona_army_village`
+--
+ALTER TABLE `plemiona_army_village`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT dla tabeli `plemiona_buildings`
 --
 ALTER TABLE `plemiona_buildings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=148;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=204;
 
 --
 -- AUTO_INCREMENT dla tabeli `plemiona_building_costs`
 --
 ALTER TABLE `plemiona_building_costs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=209;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1665;
 
 --
 -- AUTO_INCREMENT dla tabeli `plemiona_building_village`
 --
 ALTER TABLE `plemiona_building_village`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT dla tabeli `plemiona_requirements`
@@ -252,19 +273,19 @@ ALTER TABLE `plemiona_requirements`
 -- AUTO_INCREMENT dla tabeli `plemiona_timings`
 --
 ALTER TABLE `plemiona_timings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=215;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=204;
 
 --
 -- AUTO_INCREMENT dla tabeli `plemiona_users`
 --
 ALTER TABLE `plemiona_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT dla tabeli `plemiona_villages`
 --
 ALTER TABLE `plemiona_villages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

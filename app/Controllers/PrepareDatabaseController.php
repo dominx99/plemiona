@@ -2,9 +2,11 @@
 
 namespace App\Controllers;
 
+use App\Models\Army;
 use App\Models\Building;
 use App\Models\Requirement;
 use App\Models\User;
+use requirements;
 
 // ! remove this class before production
 class PrepareDatabaseController extends Controller
@@ -14,12 +16,18 @@ class PrepareDatabaseController extends Controller
         $this->removeAllData();
     }
 
+    public function drop()
+    {
+        $this->dropAllTables();
+    }
+
     protected function removeAllData()
     {
         foreach (User::get() as $user) {
 
             foreach ($user->villages as $village) {
                 $village->buildings()->detach();
+                $village->armies()->detach();
 
                 $village->delete();
             }
@@ -37,6 +45,7 @@ class PrepareDatabaseController extends Controller
         $this->removePreviousData();
 
         $this->prepareBuildings();
+        $this->prepareArmies();
         $this->prepareRequirements();
     }
 
@@ -48,6 +57,15 @@ class PrepareDatabaseController extends Controller
             $building = Building::create($building);
 
             $this->prepareCostsForBuilding($building);
+        }
+    }
+
+    protected function prepareArmies()
+    {
+        $armies = $this->config->get('armies.all_armies');
+
+        foreach ($armies as $army) {
+            Army::create($army);
         }
     }
 
@@ -90,9 +108,11 @@ class PrepareDatabaseController extends Controller
 
     protected function removePreviousData()
     {
+        Requirement::truncate();
+        Army::truncate();
+
         foreach (Building::get() as $building) {
             $building->costs()->delete();
-            Requirement::truncate();
 
             $building->delete();
         }
@@ -101,6 +121,7 @@ class PrepareDatabaseController extends Controller
     protected function prepareRequirements()
     {
         $this->prepareRequirementsForBuildings();
+        $this->prepareRequirementsForArmies();
     }
 
     protected function prepareRequirementsForBuildings()
@@ -110,5 +131,43 @@ class PrepareDatabaseController extends Controller
                 $this->prepareRequirementsForBuilding($building, $cost->level);
             }
         }
+    }
+
+    protected function prepareRequirementsForArmies()
+    {
+        foreach (Army::get() as $army) {
+            $this->prepareRequirementsForArmy($army);
+        }
+    }
+
+    protected function prepareRequirementsForArmy(Army $army)
+    {
+        if (!$requirements = $this->config->get("requirements.armies.{$army->type}")) {
+            return;
+        }
+
+        foreach ($requirements as $type => $reqLevel) {
+            $reqBuilding = $this->buildings->FindByType($type);
+
+            $army->requirements()->create([
+                'building_id' => $reqBuilding->id,
+                'level'       => $reqLevel,
+            ]);
+        }
+    }
+
+    protected function dropAllTables()
+    {
+        $schema = $this->db->schema();
+
+        $schema->dropIfExists('armies');
+        $schema->dropIfExists('army_village');
+        $schema->dropIfExists('buildings');
+        $schema->dropIfExists('building_costs');
+        $schema->dropIfExists('building_village');
+        $schema->dropIfExists('requirements');
+        $schema->dropIfExists('timings');
+        $schema->dropIfExists('users');
+        $schema->dropIfExists('villages');
     }
 }
