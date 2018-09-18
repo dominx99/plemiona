@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Expedition;
 use App\Models\User;
 use App\Models\Village;
+use App\Observers\ExpeditionObserver;
 use App\Observers\UserObserver;
 use App\Observers\VillageObserver;
 use App\Repositories\VillageRepository;
@@ -76,5 +78,6 @@ $container['foodCalculator'] = function ($container) {
 
 Village::observe(VillageObserver::class);
 User::observe(UserObserver::class);
+Expedition::observe(ExpeditionObserver::class);
 
 v::with('App\Validation\\Rules\\');

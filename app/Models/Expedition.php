@@ -14,6 +14,11 @@ class Expedition extends Model
         'destination',
         'food',
         'gold',
+        'reach_at',
+    ];
+
+    protected $dates = [
+        'reach_at',
     ];
 
     public function sender()
@@ -36,10 +41,7 @@ class Expedition extends Model
      */
     public function canBeEnded(): bool
     {
-        $now     = Carbon::now();
-        $reachAt = Carbon::createFromTimeString($this->reach_at);
-
-        return $now > $reachAt;
+        return Carbon::now() > $this->reach_at;
     }
 
     public function decreaseArmy(int $defense): void

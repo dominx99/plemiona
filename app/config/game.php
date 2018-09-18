@@ -11,4 +11,6 @@ return [
 
     'possible_queue_buildings'  => 3,
     'possible_queue_armies'     => 3,
+
+    'armies_march_ratio'        => 3,
 ];

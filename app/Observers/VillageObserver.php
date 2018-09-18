@@ -111,8 +111,6 @@ class VillageObserver
 
         $this->armyRecruiter->recruitForVillage($village);
         $this->armyRecruiter->setNewActive($village);
-
-        $this->armyExpeditor->endExpeditions($village);
     }
 
     /**

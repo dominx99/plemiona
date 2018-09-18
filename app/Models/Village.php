@@ -191,9 +191,9 @@ class Village extends Model
         foreach ($expedition->armies as $army) {
             $villageArmy = $this->armies()->where('type', $army->type)->first();
 
-            var_dump($villageArmy->name);
+            $villageArmy->pivot->update([
+                'amount' => $villageArmy->pivot->amount + $army->pivot->amount,
+            ]);
         }
-
-        die();
     }
 }

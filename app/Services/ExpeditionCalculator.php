@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Expedition;
 use App\Services\ArmyCalculator;
 use App\Services\ResourcesCalculator;
+use App\Services\RoadCalculator;
 
 class ExpeditionCalculator
 {
@@ -14,24 +15,26 @@ class ExpeditionCalculator
     protected $armyCalculator;
 
     /**
-     * @var \App\Models\Village
-     */
-    protected $sender;
-
-    /**
      * @var \App\Services\ResourcesCalculator
      */
     protected $resourcesCalculator;
+
+    /**
+     * @var \App\Services\RoadCalculator
+     */
+    protected $roadCalculator;
 
     /**
      * @param \App\Services\ArmyCalculator $armyCalculator
      */
     public function __construct(
         ArmyCalculator $armyCalculator,
-        ResourcesCalculator $resourcesCalculator
+        ResourcesCalculator $resourcesCalculator,
+        RoadCalculator $roadCalculator
     ) {
         $this->armyCalculator      = $armyCalculator;
         $this->resourcesCalculator = $resourcesCalculator;
+        $this->roadCalculator      = $roadCalculator;
     }
 
     /**
@@ -55,6 +58,7 @@ class ExpeditionCalculator
     public function attackForwards(Expedition $expedition): bool
     {
         $receiver = $expedition->receiver;
+        $sender   = $expedition->sender;
 
         $defense = $this->armyCalculator->calculateDefenseOnVillage($receiver);
         $attack  = $this->armyCalculator->calculatePowerOnExpedition($expedition);
@@ -73,19 +77,22 @@ class ExpeditionCalculator
         $capacity  = $this->resourcesCalculator->calculateCapacityOnExpedition($expedition);
         $resources = $receiver->decreaseResourcesOnCapacity($capacity);
 
-        $resources['destination'] = 'back';
-        $expedition->update($resources);
+        $expeditionRoad = $this->roadCalculator->calculate($sender, $receiver);
+
+        $data                = array_merge($resources, $expeditionRoad);
+        $data['destination'] = 'back';
+
+        $expedition->update($data);
 
         return true;
     }
 
     public function attackBack(Expedition $expedition)
     {
-        $this->sender->addArmies($expedition);
+        $expedition->sender->addArmies($expedition);
 
-        $this->sender->increment('food', $expedition->food);
-        $this->sender->increment('gold', $expedition->gold);
-        die();
-        // $expedition->delete();
+        $expedition->sender->increment('food', $expedition->food);
+        $expedition->sender->increment('gold', $expedition->gold);
+        $expedition->delete();
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\Expedition;
-use App\Models\Village;
 use App\Services\ExpeditionCalculator;
 
 class ArmyExpeditor
@@ -13,20 +12,18 @@ class ArmyExpeditor
      */
     protected $expeditionCalculator;
 
+    /**
+     * @param \App\Services\ExpeditionCalculator $expeditionCalculator
+     */
     public function __construct(ExpeditionCalculator $expeditionCalculator)
     {
         $this->expeditionCalculator = $expeditionCalculator;
     }
 
-    public function endExpeditions(Village $village)
-    {
-        $expeditions = $village->expeditions;
-
-        foreach ($expeditions as $expedition) {
-            $this->endExpedition($expedition);
-        }
-    }
-
+    /**
+     * @param \App\Models\Expedition $expedition
+     * @return void
+     */
     public function endExpedition(Expedition $expedition)
     {
         if (!$expedition->canBeEnded()) {
