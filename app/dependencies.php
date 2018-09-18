@@ -64,6 +64,10 @@ $container['armies'] = function ($container) {
     return new \App\Repositories\ArmyRepository($container);
 };
 
+$container['expeditions'] = function ($container) {
+    return new \App\Repositories\ExpeditionRepository($container);
+};
+
 $container['buildingUpgrador'] = function ($container) {
     return new \App\Services\BuildingUpgrador($container);
 };
@@ -74,6 +78,10 @@ $container['goldCalculator'] = function ($container) {
 
 $container['foodCalculator'] = function ($container) {
     return new \App\Services\FoodCalculator($container->get('config'));
+};
+
+$container['roadCalculator'] = function ($container) {
+    return new \App\Services\RoadCalculator($container->get('config'));
 };
 
 Village::observe(VillageObserver::class);

@@ -135,6 +135,33 @@ class Village extends Model
     }
 
     /**
+     * @param array $armies
+     * @return boolean
+     */
+    public function hasEnoughArmies(array $armies): bool
+    {
+        foreach ($armies as $key => $army) {
+            if (!$this->hasEnoughArmy($key, $army)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param integer $key
+     * @param integer $amount
+     * @return boolean
+     */
+    public function hasEnoughArmy(int $key, int $amount): bool
+    {
+        $army = $this->armies()->find($key);
+
+        return $army->pivot->amount >= $amount;
+    }
+
+    /**
      * @param integer $capacity
      * @return array
      */
@@ -193,6 +220,17 @@ class Village extends Model
 
             $villageArmy->pivot->update([
                 'amount' => $villageArmy->pivot->amount + $army->pivot->amount,
+            ]);
+        }
+    }
+
+    public function takeArmies(array $armies): void
+    {
+        foreach ($armies as $key => $amount) {
+            $army = $this->armies()->find($key);
+
+            $army->pivot->update([
+                'amount' => $army->pivot->amount - $amount,
             ]);
         }
     }

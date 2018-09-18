@@ -9,7 +9,7 @@ class Expedition extends Model
 {
     protected $fillable = [
         'village_id',
-        'destination_id',
+        'receiver_id',
         'type',
         'destination',
         'food',
@@ -28,7 +28,7 @@ class Expedition extends Model
 
     public function receiver()
     {
-        return $this->belongsTo(Village::class, 'destination_id');
+        return $this->belongsTo(Village::class, 'receiver_id');
     }
 
     public function armies()
@@ -59,6 +59,17 @@ class Expedition extends Model
                 $defense = abs($diff);
                 $army->pivot->update(['amount' => 0]);
             }
+        }
+    }
+
+    public function assignArmies(array $armies)
+    {
+        foreach ($armies as $key => $amount) {
+            if ($amount <= 0) {
+                continue;
+            }
+
+            $this->armies()->attach($key, ['amount' => $amount]);
         }
     }
 }

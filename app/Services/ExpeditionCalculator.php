@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Expedition;
+use App\Repositories\ExpeditionRepository;
 use App\Services\ArmyCalculator;
 use App\Services\ResourcesCalculator;
 use App\Services\RoadCalculator;
@@ -25,16 +26,23 @@ class ExpeditionCalculator
     protected $roadCalculator;
 
     /**
+     * @var \App\Repositories\ExpeditionRepository
+     */
+    protected $expeditions;
+
+    /**
      * @param \App\Services\ArmyCalculator $armyCalculator
      */
     public function __construct(
         ArmyCalculator $armyCalculator,
         ResourcesCalculator $resourcesCalculator,
-        RoadCalculator $roadCalculator
+        RoadCalculator $roadCalculator,
+        ExpeditionRepository $expeditions
     ) {
         $this->armyCalculator      = $armyCalculator;
         $this->resourcesCalculator = $resourcesCalculator;
         $this->roadCalculator      = $roadCalculator;
+        $this->expeditions         = $expeditions;
     }
 
     /**
@@ -68,7 +76,7 @@ class ExpeditionCalculator
         $receiver->decreaseArmy($attack);
 
         if (!$win) {
-            $expedition->delete();
+            $this->expeditions->delete($expedition);
             return false;
         }
 
@@ -93,6 +101,6 @@ class ExpeditionCalculator
 
         $expedition->sender->increment('food', $expedition->food);
         $expedition->sender->increment('gold', $expedition->gold);
-        $expedition->delete();
+        $this->expeditions->delete($expedition);
     }
 }
