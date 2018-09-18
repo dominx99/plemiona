@@ -13,4 +13,6 @@ $app->group('/api', function () use ($app) {
     $app->post('/recruit', ApiArmiesController::class . ':recruit');
 
     $app->post('/expedition', ApiExpeditionsController::class . ':create');
+
+    $app->post('/user/expeditions', ApiExpeditionsController::class . ':index');
 });

@@ -3,26 +3,59 @@
 {% block title %} Mapa {% endblock %}
 
 {% block content %}
-    <div class="mb-5">
-        <h2>Twoje wioski</h2>
-        {% for village in auth.user.villages %}
-            <p>
-                <a href="{{ path_for('villages.show', {id: village.id}) }}">
-                    <span>{{ village.name }}</span>
-                </a>
-                <span>x: {{ village.x }}</span>
-                <span>y: {{ village.y }}</span>
-            </p>
-        {% endfor %}
-    </div>
-    <div>
-        <h2>Wioski innych</h2>
-        {% for village in villages if village.isOwner(auth.user.id) == false %}
-            <p>
-                <a href="#">{{ village.name }}</a>
-                <span>x: {{ village.x }}</span>
-                <span>x: {{ village.y }}</span> 
-            </p>
-        {% endfor %}
+    <div class="row">
+        <div class="col-md-4">
+            <div class="mb-5">
+                <h2>Twoje wioski</h2>
+                {% for village in auth.user.villages %}
+                    <p>
+                        <a href="{{ path_for('villages.show', {id: village.id}) }}">
+                            <span>{{ village.name }}</span>
+                        </a>
+                        <span>x: {{ village.x }}</span>
+                        <span>y: {{ village.y }}</span>
+                    </p>
+                {% endfor %}
+            </div>
+            <div>
+                <h2>Wioski innych</h2>
+                {% for village in villages if village.isOwner(auth.user.id) == false %}
+                    <p>
+                        <a href="#">{{ village.name }}</a>
+                        <span>x: {{ village.x }}</span>
+                        <span>x: {{ village.y }}</span>
+                        <a class="attackVillage" href="#" data-receiver="{{ village.id }}" data-type="attack">atakuj</a>
+                    </p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-8">
+            {% for village in auth.user.villages %}
+                <table class="table active-village" data-sender="{{ village.id }}">
+                    <thead>
+                        <tr class="header">
+                            <th>jednostka</th>
+                            <th>Posiadane</th>
+                            <th>ilość</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for army in village.armies %}
+                            <tr>
+                                <td>{{ army.name }}</td>
+                                <td>{{ army.pivot.amount }}</td>
+                                <td>
+                                    <input class="army-amount" data-army="{{ army.id }}" type="text" value="0">
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endfor %}
+        </div>
     </div>
 {% endblock content %}
+
+{% block js %}
+    <script src="{{ base_url() }}/dist/js/map.min.js"></script>
+{% endblock %}

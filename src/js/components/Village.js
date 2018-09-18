@@ -3,6 +3,7 @@ import Gold from './Properties/Gold';
 import Timings from './Properties/Timings';
 import Upgrador from './Properties/Upgrador';
 import Recruiter from './Properties/Recruiter';
+import Expedition from './Expedition';
 
 export default class Village {
     constructor() {
@@ -23,7 +24,7 @@ export default class Village {
     bind() {
         this.update();
 
-        // setInterval(() => this.update(), 5000);
+        setInterval(() => this.update(), 5000);
     }
 
     update() {

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Expedition;
+use App\Models\User;
 use App\Models\Village;
 
 class ExpeditionRepository extends AbstractRepository
@@ -37,5 +38,16 @@ class ExpeditionRepository extends AbstractRepository
     {
         $expedition->armies()->detach();
         $expedition->delete();
+    }
+
+    public function getForUser(User $user): array
+    {
+        $expeditions = [];
+
+        foreach ($user->villages as $village) {
+            $expeditions[] = $village->expeditions;
+        }
+
+        return $expeditions;
     }
 }

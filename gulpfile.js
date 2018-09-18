@@ -14,7 +14,7 @@ const gulp         = require('gulp'),
 const jsFolder = 'src/js/',
       jsDist   = './dist/js',
       jsWatch  = 'src/js/**/*.js',
-      jsFiles  = ['village.js'];
+      jsFiles  = ['village.js', 'map.js'];
 
 const cssSrc   = ['src/css/**/*.css', '!src/css/**/*.min.css'],
       cssWatch = 'src/scss/**/*.scss',

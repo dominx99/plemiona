@@ -234,4 +234,15 @@ class Village extends Model
             ]);
         }
     }
+
+    public function sendAnyArmy($armies)
+    {
+        foreach ($armies as $army) {
+            if ($army > 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

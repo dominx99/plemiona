@@ -17,10 +17,6 @@ class Expedition extends Model
         'reach_at',
     ];
 
-    protected $dates = [
-        'reach_at',
-    ];
-
     public function sender()
     {
         return $this->belongsTo(Village::class, 'village_id');
