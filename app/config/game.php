@@ -3,8 +3,8 @@
 return [
     'food_at_start'             => 50,
     'gold_at_start'             => 300,
-    'food_per_level'            => 0,
-    'gold_per_level'            => 0,
+    'food_per_level'            => 1,
+    'gold_per_level'            => 2.5,
 
     'possible_active_buildings' => 1,
     'possible_active_armies'    => 1,
