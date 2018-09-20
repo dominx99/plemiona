@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 17 Wrz 2018, 18:21
+-- Czas generowania: 21 Wrz 2018, 00:47
 -- Wersja serwera: 10.1.30-MariaDB
 -- Wersja PHP: 7.2.2
 
@@ -37,6 +37,21 @@ CREATE TABLE `plemiona_armies` (
   `capacity` int(11) NOT NULL,
   `cost` int(11) NOT NULL,
   `time` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `plemiona_army_expedition`
+--
+
+CREATE TABLE `plemiona_army_expedition` (
+  `id` int(11) NOT NULL,
+  `army_id` int(11) NOT NULL,
+  `expedition_id` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -105,6 +120,45 @@ CREATE TABLE `plemiona_building_village` (
 -- --------------------------------------------------------
 
 --
+-- Struktura tabeli dla tabeli `plemiona_expeditions`
+--
+
+CREATE TABLE `plemiona_expeditions` (
+  `id` int(11) NOT NULL,
+  `village_id` int(11) NOT NULL,
+  `receiver_id` int(11) NOT NULL,
+  `type` text CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
+  `destination` text CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
+  `food` int(11) DEFAULT '0',
+  `gold` int(11) NOT NULL DEFAULT '0',
+  `reach_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `plemiona_reports`
+--
+
+CREATE TABLE `plemiona_reports` (
+  `id` int(11) NOT NULL,
+  `village_id` int(11) NOT NULL,
+  `expedition_id` int(11) NOT NULL,
+  `win` tinyint(1) NOT NULL,
+  `title` text CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_polish_ci,
+  `power` int(11) DEFAULT NULL,
+  `defense` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabeli dla tabeli `plemiona_requirements`
 --
 
@@ -112,7 +166,7 @@ CREATE TABLE `plemiona_requirements` (
   `id` int(11) NOT NULL,
   `building_id` int(11) NOT NULL,
   `level` int(11) NOT NULL,
-  `requirementable_level` int(11) NOT NULL,
+  `requirementable_level` int(11) DEFAULT NULL,
   `requirementable_id` int(11) NOT NULL,
   `requirementable_type` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -182,6 +236,12 @@ ALTER TABLE `plemiona_armies`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeksy dla tabeli `plemiona_army_expedition`
+--
+ALTER TABLE `plemiona_army_expedition`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeksy dla tabeli `plemiona_army_village`
 --
 ALTER TABLE `plemiona_army_village`
@@ -203,6 +263,18 @@ ALTER TABLE `plemiona_building_costs`
 -- Indeksy dla tabeli `plemiona_building_village`
 --
 ALTER TABLE `plemiona_building_village`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeksy dla tabeli `plemiona_expeditions`
+--
+ALTER TABLE `plemiona_expeditions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeksy dla tabeli `plemiona_reports`
+--
+ALTER TABLE `plemiona_reports`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -240,28 +312,46 @@ ALTER TABLE `plemiona_armies`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT dla tabeli `plemiona_army_expedition`
+--
+ALTER TABLE `plemiona_army_expedition`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
 -- AUTO_INCREMENT dla tabeli `plemiona_army_village`
 --
 ALTER TABLE `plemiona_army_village`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT dla tabeli `plemiona_buildings`
 --
 ALTER TABLE `plemiona_buildings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=204;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT dla tabeli `plemiona_building_costs`
 --
 ALTER TABLE `plemiona_building_costs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1665;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=729;
 
 --
 -- AUTO_INCREMENT dla tabeli `plemiona_building_village`
 --
 ALTER TABLE `plemiona_building_village`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
+-- AUTO_INCREMENT dla tabeli `plemiona_expeditions`
+--
+ALTER TABLE `plemiona_expeditions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT dla tabeli `plemiona_reports`
+--
+ALTER TABLE `plemiona_reports`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `plemiona_requirements`
@@ -273,19 +363,19 @@ ALTER TABLE `plemiona_requirements`
 -- AUTO_INCREMENT dla tabeli `plemiona_timings`
 --
 ALTER TABLE `plemiona_timings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=204;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `plemiona_users`
 --
 ALTER TABLE `plemiona_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT dla tabeli `plemiona_villages`
 --
 ALTER TABLE `plemiona_villages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
