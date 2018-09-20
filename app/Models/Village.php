@@ -45,6 +45,11 @@ class Village extends Model
         return $this->hasMany(Expedition::class);
     }
 
+    public function reports()
+    {
+        return $this->hasMany(Report::class)->orderBy('created_at', 'desc');
+    }
+
     /**
      * @param string $building
      * @return integer

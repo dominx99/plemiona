@@ -68,6 +68,10 @@ $container['expeditions'] = function ($container) {
     return new \App\Repositories\ExpeditionRepository($container);
 };
 
+$container['reports'] = function ($container) {
+    return new \App\Repositories\ReportRepository($container);
+};
+
 $container['buildingUpgrador'] = function ($container) {
     return new \App\Services\BuildingUpgrador($container);
 };

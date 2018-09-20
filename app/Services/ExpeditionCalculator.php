@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Expedition;
 use App\Repositories\ExpeditionRepository;
+use App\Repositories\ReportRepository;
 use App\Services\ArmyCalculator;
 use App\Services\ResourcesCalculator;
 use App\Services\RoadCalculator;
@@ -31,18 +32,25 @@ class ExpeditionCalculator
     protected $expeditions;
 
     /**
+     * @var \App\Repositories\ReportRepository
+     */
+    protected $reports;
+
+    /**
      * @param \App\Services\ArmyCalculator $armyCalculator
      */
     public function __construct(
         ArmyCalculator $armyCalculator,
         ResourcesCalculator $resourcesCalculator,
         RoadCalculator $roadCalculator,
-        ExpeditionRepository $expeditions
+        ExpeditionRepository $expeditions,
+        ReportRepository $reports
     ) {
         $this->armyCalculator      = $armyCalculator;
         $this->resourcesCalculator = $resourcesCalculator;
         $this->roadCalculator      = $roadCalculator;
         $this->expeditions         = $expeditions;
+        $this->reports             = $reports;
     }
 
     /**
@@ -74,6 +82,12 @@ class ExpeditionCalculator
         $win = $attack >= $defense;
 
         $receiver->decreaseArmy($attack);
+
+        $this->reports->createOnSender($expedition, [
+            'power'   => $attack,
+            'defense' => $defense,
+            'win'     => $win,
+        ]);
 
         if (!$win) {
             $this->expeditions->delete($expedition);

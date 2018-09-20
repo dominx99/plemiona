@@ -31,12 +31,11 @@ class ExpeditionRepository extends AbstractRepository
     }
 
     /**
-     * @param Expedition $expedition
+     * @param \App\Models\Expedition $expedition
      * @return void
      */
     public function delete(Expedition $expedition): void
     {
-        $expedition->armies()->detach();
         $expedition->delete();
     }
 

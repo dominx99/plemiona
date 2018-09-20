@@ -26,6 +26,10 @@ class ExpeditionObserver
      */
     public function retrieved(Expedition $expedition): void
     {
+        if ($expedition->deleted_at) {
+            return;
+        }
+
         $this->armyExpeditor->endExpedition($expedition);
     }
 }

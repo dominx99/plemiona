@@ -24,7 +24,7 @@
 @each $name, $color in $colors {
     .btn-#{$name} {
         background-color: $color;
-        color: text-color($color);
+        color: text-color($color) !important;
         transition: all .2s;
 
         &:hover {

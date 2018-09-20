@@ -1,0 +1,33 @@
+{% extends "layouts/game.twig" %}
+
+{% block title %} Raporty {% endblock %}
+
+{% block content %}
+    
+
+    <table class="table">
+        <thead>
+            <tr class="header">
+                <th>tytuł</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in village.reports %}
+                <tr>
+                    <td>{{ report.title }}</td>
+                    <td>{{ report.created_at | date('H:i:s') }}</td>
+                    <td class="text-right">
+                        <a href="{{ path_for('report', {id: report.id}) }}" class="btn btn-{{ report.win ? 'success' : 'danger' }}">Sprawdź</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock content %}
+
+{% block js %}
+    <script src="{{ base_url() }}/dist/js/village.min.js"></script>
+{% endblock js %}

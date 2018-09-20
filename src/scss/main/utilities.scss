@@ -2,6 +2,10 @@
     text-align: center;
 }
 
+.text-right {
+    text-align: right;
+}
+
 .small {
     font-size: 80%;
 }
@@ -37,6 +41,12 @@ a {
 
 @each $name, $color in $colors {
     .#{$name} {
-        color: $color;
+        color: $color !important;
+    }
+};
+
+@each $name, $color in $colors {
+    .bg-#{$name} {
+        background-color: $color !important;
     }
 };

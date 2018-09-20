@@ -1,0 +1,41 @@
+{% extends "layouts/game.twig" %}
+
+{% block title %} {{ report.title }} {% endblock %}
+
+{% block content %}
+    
+    <div class="card">
+        <div class="card-header {{ report.win ? 'bg-success' : 'bg-danger' }}">
+            {{ report.title }}
+        </div>
+        <table class="table bg-secondary">
+            <tbody>
+                <tr>
+                    <td>Twoja siła podczas ataku</td>
+                    <td>{{ report.power }}</td>
+                </tr>
+                <tr>
+                    <td>Obrona przeciwnika podczas ataku</td>
+                    <td>{{ report.defense }}</td>
+                </tr>
+                <tr>
+                    <td>Skradzione złoto</td>
+                    <td>{{ report.expedition.gold }}</td>
+                </tr>
+                <tr>
+                    <td>Skradzione żarcie</td>
+                    <td>{{ report.expedition.food }}</td>
+                </tr>
+                <tr>
+                    <td>Wojsko, które przeżyło wraz z zasobami wróci o</td>
+                    <td>{{ report.expedition.reach_at | date('H:i:s') }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+{% endblock content %}
+
+{% block js %}
+    <script src="{{ base_url() }}/dist/js/village.min.js"></script>
+{% endblock js %}

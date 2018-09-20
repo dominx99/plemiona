@@ -4,17 +4,26 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Expedition extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'village_id',
         'receiver_id',
+        'active',
         'type',
         'destination',
         'food',
         'gold',
         'reach_at',
+        'deleted_at',
+    ];
+
+    protected $dates = [
+        'deleted_at',
     ];
 
     public function sender()
