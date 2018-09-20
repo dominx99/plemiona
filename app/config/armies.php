@@ -14,7 +14,7 @@ return [
         [
             'type'     => 'swordman',
             'name'     => 'Miecznicy',
-            'power'    => 5,
+            'power'    => 9,
             'defense'  => 5,
             'capacity' => 50,
             'cost'     => 30,
@@ -23,8 +23,8 @@ return [
         [
             'type'    => 'archer',
             'name'    => 'Łucznicy',
-            'power'   => 5,
-            'defense' => 10,
+            'power'   => 12,
+            'defense' => 15,
             'capacit' => 20,
             'cost'    => 45,
             'time'    => 5,
@@ -32,8 +32,8 @@ return [
         [
             'type'     => 'rider',
             'name'     => 'Jeźdźcy',
-            'power'    => 15,
-            'defense'  => 1,
+            'power'    => 25,
+            'defense'  => 5,
             'capacity' => 20,
             'cost'     => 50,
             'time'     => 5,
