@@ -4,7 +4,9 @@ namespace App\Controllers;
 
 use App\Models\Army;
 use App\Models\Building;
+use App\Models\Report;
 use App\Models\Requirement;
+use App\Models\Timing;
 use App\Models\User;
 use requirements;
 
@@ -28,6 +30,12 @@ class PrepareDatabaseController extends Controller
             foreach ($user->villages as $village) {
                 $village->buildings()->detach();
                 $village->armies()->detach();
+                $village->reports()->delete();
+
+                foreach ($village->expeditions as $expedition) {
+                    $expedition->armies()->detach();
+                    $expedition->forceDelete();
+                }
 
                 $village->delete();
             }
@@ -110,6 +118,8 @@ class PrepareDatabaseController extends Controller
     {
         Requirement::truncate();
         Army::truncate();
+        Report::truncate();
+        Timing::truncate();
 
         foreach (Building::get() as $building) {
             $building->costs()->delete();
@@ -169,5 +179,8 @@ class PrepareDatabaseController extends Controller
         $schema->dropIfExists('timings');
         $schema->dropIfExists('users');
         $schema->dropIfExists('villages');
+        $schema->dropIfExists('expeditions');
+        $schema->dropIfExists('army_expedition');
+        $schema->dropIfExists('reports');
     }
 }
