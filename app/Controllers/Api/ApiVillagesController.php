@@ -29,9 +29,6 @@ class ApiVillagesController extends Controller
             'armyTimings'     => function ($query) {
                 $query->with('army');
             },
-            'expeditions'     => function ($query) {
-                $query->with('expeditions');
-            },
         ]);
 
         return $response->withJson([
