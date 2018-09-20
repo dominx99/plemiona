@@ -16,6 +16,15 @@
     {% else %}
         {% for village in auth.user.villages %}
             <a href="{{ path_for('villages.show', {id: village.id}) }}" class="header">{{ village.name }}</a>
+
+            <div class="section timings">
+                {% for expedition in village.expeditions %}
+                    <div class="timing">
+                        <div class="name">{{ expedition.receiver.name }}</div>
+                        <div class="time">{{ expedition.reach_at | date('H:i:s') }}</div>
+                    </div>
+                {% endfor %}
+            </div>
         {% endfor %}
     {% endif %}
 
