@@ -83,11 +83,14 @@ class ExpeditionCalculator
 
         $receiver->decreaseArmy($attack);
 
-        $this->reports->createOnSender($expedition, [
+        $reportData = [
             'power'   => $attack,
             'defense' => $defense,
             'win'     => $win,
-        ]);
+        ];
+
+        $this->reports->createOnSender($expedition, $reportData);
+        $this->reports->createOnReceiver($expedition, $reportData);
 
         if (!$win) {
             $this->expeditions->delete($expedition);

@@ -20,8 +20,30 @@ class ReportRepository extends AbstractRepository
         $data = array_merge($data, [
             'expedition_id' => $expedition->id,
             'title'         => $title,
+            'is_sender'     => true,
         ]);
 
         $sender->reports()->create($data);
+    }
+
+    /**
+     * @param \App\Models\Expedition $expedition
+     * @param array $data
+     * @return void
+     */
+    public function createOnReceiver(Expedition $expedition, array $data): void
+    {
+        $receiver = $expedition->receiver;
+        $result   = $data['win'] ? 'przegrała' : 'wygrała';
+        $title    = "Obrona twojej {$expedition->receiver->name} {$result}";
+
+        $data = array_merge($data, [
+            'expedition_id' => $expedition->id,
+            'title'         => $title,
+            'is_sender'     => false,
+            'win'           => !$data['win'],
+        ]);
+
+        $receiver->reports()->create($data);
     }
 }
