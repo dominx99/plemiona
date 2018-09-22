@@ -34,6 +34,8 @@ $app->group('', function () use ($app, $container) {
 
     $app->get('/mapa', VillagesController::class . ':map')->setName('map');
 
+    $app->get('/raport/{id}', ReportsController::class . ':show')->setName('report');
+
     $app->group('', function () use ($app) {
         $app->get('/twierdza/{id}', FortressController::class . ':index')->setName('building.fortress');
         $app->get('/kopalnia-zlota/{id}', GoldMineController::class . ':index')->setName('building.gold_mine');
@@ -44,7 +46,6 @@ $app->group('', function () use ($app, $container) {
         $app->get('/stajnia/{id}', SmithyController::class . ':index')->setName('building.stable');
 
         $app->get('/raporty/{id}', ReportsController::class . ':index')->setName('reports');
-        $app->get('/raport/{id}', ReportsController::class . ':show')->setName('report');
 
         $app->get('/[{id:[0-9]+}]', VillagesController::class . ':show')->setName('villages.show');
     })->add(new \App\Middleware\UserIsOwnerOfVillageMiddleware($container));
