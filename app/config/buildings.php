@@ -47,7 +47,7 @@ return [
             'level' => 1,
         ],
         'farm'      => [
-            'level' => 1,
+            'level' => 0,
         ],
         'barrack'   => [
             'level' => 0,
@@ -80,21 +80,21 @@ return [
 
     'barrack'            => [
         'cost_ratio' => 1.618 * 200,
-        'time_ratio' => 0.618 * 7,
+        'time_ratio' => 0.618 * 8,
     ],
 
     'smithy'             => [
         'cost_ratio' => 1.618 * 175,
-        'time_ratio' => 0.618 * 8,
+        'time_ratio' => 0.618 * 7,
     ],
 
     'armory'             => [
         'cost_ratio' => 1.618 * 175,
-        'time_ratio' => 0.618 * 8,
+        'time_ratio' => 0.618 * 7,
     ],
 
     'stable'             => [
         'cost_ratio' => 1.618 * 175,
-        'time_ratio' => 0.618 * 8,
+        'time_ratio' => 0.618 * 7,
     ],
 ];

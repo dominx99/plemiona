@@ -69,5 +69,10 @@ return [
             'armory'   => 8,
             'stable'   => 9,
         ],
+        'giants'   => [
+            'fortress' => 14,
+            'barrack'  => 10,
+            'armory'   => 10,
+        ],
     ],
 ];
