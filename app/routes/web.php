@@ -40,6 +40,7 @@ $app->group('', function () use ($app, $container) {
         $app->get('/twierdza/{id}', FortressController::class . ':index')->setName('building.fortress');
         $app->get('/kopalnia-zlota/{id}', GoldMineController::class . ':index')->setName('building.gold_mine');
         $app->get('/farma/{id}', FarmController::class . ':index')->setName('building.farm');
+        $app->get('/spichlerz/{id}', SmithyController::class . ':index')->setName('building.granary');
         $app->get('/koszary/{id}', BarrackController::class . ':index')->setName('building.barrack');
         $app->get('/kuznia/{id}', SmithyController::class . ':index')->setName('building.smithy');
         $app->get('/zbrojownia/{id}', SmithyController::class . ':index')->setName('building.armory');

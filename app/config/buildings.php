@@ -18,21 +18,26 @@ return [
             'color' => 'yellow',
         ],
         3 => [
+            'type'  => 'granary',
+            'name'  => 'Spichlerz',
+            'color' => 'yellow',
+        ],
+        4 => [
             'type'  => 'barrack',
             'name'  => 'Koszary',
             'color' => 'yellow',
         ],
-        4 => [
+        5 => [
             'type'  => 'smithy',
             'name'  => 'Kuźnia',
             'color' => 'yellow',
         ],
-        5 => [
+        6 => [
             'type'  => 'stable',
             'name'  => 'Stajnia',
             'color' => 'yellow',
         ],
-        6 => [
+        7 => [
             'type'  => 'armory',
             'name'  => 'Zbrojownia',
             'color' => 'yellow',
@@ -48,6 +53,9 @@ return [
         ],
         'farm'      => [
             'level' => 0,
+        ],
+        'granary'   => [
+            'level' => 1,
         ],
         'barrack'   => [
             'level' => 0,
@@ -71,6 +79,11 @@ return [
     'farm'               => [
         'cost_ratio' => 1.618 * 80,
         'time_ratio' => 0.618 * 6,
+    ],
+
+    'granary'            => [
+        'cost_ratio' => 1.618 * 150,
+        'time_ratio' => 0.618 * 7,
     ],
 
     'fortress'           => [

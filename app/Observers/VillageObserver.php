@@ -11,6 +11,7 @@ use App\Services\ArmyRecruiter;
 use App\Services\BuildingUpgrador;
 use App\Services\FoodCalculator;
 use App\Services\GoldCalculator;
+use App\Services\ResourcesCalculator;
 use Carbon\Carbon;
 
 class VillageObserver
@@ -51,6 +52,11 @@ class VillageObserver
     protected $food;
 
     /**
+     * @var \App\Services\ResourcesCalculator $ResourcesCalculator
+     */
+    protected $resourcesCalculator;
+
+    /**
      * @var \App\Config
      */
     protected $config;
@@ -60,7 +66,10 @@ class VillageObserver
      * @param \App\Services\FoodCalculator $food
      * @param \App\Repositories\BuildingRepository $buildingRepository
      * @param \App\Services\BuildingUpgrador $buildingUpgrador
+     * @param \App\Services\ResourcesCalculator $resourcesCalculator
+     * @param \App\Repositories\ArmyRepository $armyRepository
      * @param \App\Services\ArmyRecruiter $armyRecruiter
+     * @param \App\Services\ArmyExpeditor $armyExpeditor
      * @param \App\Config $config
      */
     public function __construct(
@@ -68,6 +77,7 @@ class VillageObserver
         FoodCalculator $food,
         BuildingRepository $buildingRepository,
         BuildingUpgrador $buildingUpgrador,
+        ResourcesCalculator $resourcesCalculator,
         ArmyRepository $armyRepository,
         ArmyRecruiter $armyRecruiter,
         ArmyExpeditor $armyExpeditor,
@@ -80,8 +90,9 @@ class VillageObserver
         $this->armyRecruiter  = $armyRecruiter;
         $this->armyExpeditor  = $armyExpeditor;
 
-        $this->gold = $gold;
-        $this->food = $food;
+        $this->gold                = $gold;
+        $this->food                = $food;
+        $this->resourcesCalculator = $resourcesCalculator;
 
         $this->config = $config;
     }
@@ -103,8 +114,10 @@ class VillageObserver
         $gold = $goldPerSec * $diff;
         $food = $foodPerSec * $diff;
 
-        $village->increment('gold', $gold);
-        $village->increment('food', $food);
+        $this->resourcesCalculator->increaseVillageResources($village, [
+            'food' => $food,
+            'gold' => $gold,
+        ]);
 
         $this->buildingUpgrador->upgradeForVillage($village);
         $this->buildingUpgrador->setNewActive($village);

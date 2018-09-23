@@ -38,6 +38,10 @@ class ExpeditionCalculator
 
     /**
      * @param \App\Services\ArmyCalculator $armyCalculator
+     * @param \App\Services\ResourcesCalculator $resourcesCalculator
+     * @param \App\Services\RoadCalculator $roadCalculator
+     * @param \App\Repositories\ExpeditionRepository $expeditions
+     * @param \App\Repositories\ReportRepository $reports
      */
     public function __construct(
         ArmyCalculator $armyCalculator,
@@ -116,8 +120,11 @@ class ExpeditionCalculator
     {
         $expedition->sender->addArmies($expedition);
 
-        $expedition->sender->increment('food', $expedition->food);
-        $expedition->sender->increment('gold', $expedition->gold);
+        $this->resourcesCalculator->increaseVillageResources($expedition->sender, [
+            'gold' => $expedition->gold,
+            'food' => $expedition->food,
+        ]);
+
         $this->expeditions->delete($expedition);
     }
 }

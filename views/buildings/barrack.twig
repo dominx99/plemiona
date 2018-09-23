@@ -27,7 +27,14 @@
                             <p class="secondary small my-2">{{ requirement.building.name }} {{ requirement.level }}</p>
                         {% endfor %}
                     </td>
-                    <td>{{ army.pivot.amount }}</td>
+                    <td>
+                        {{ army.pivot.amount }}
+                        <div class="secondary small">
+                            <p class="my-2">siła: {{ army.power }}</p>
+                            <p class="my-2">obrona: {{ army.defense }}</p>
+                            <p class="my-2">ładowność: {{ army.capacity }}</p>
+                        </div>
+                    </td>
                     <td id="army-cost-{{ army.id }}">{{ army.cost }}</td>
                     <td id="army-time-{{ army.id }}">{{ army.time }}</td>
                     <td><input id="input-{{ army.id }}" type="text" value="1" data-army-id="{{ army.id }}" data-cost="{{ army.cost }}" data-time="{{ army.time }}"></td>
