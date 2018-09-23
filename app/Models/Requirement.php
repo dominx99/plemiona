@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Requirement extends Model
 {
+    use \Awobaz\Compoships\Compoships;
+
     protected $fillable = [
         'requirementable_id',
         'requirementable_type',
@@ -22,5 +24,10 @@ class Requirement extends Model
     public function building()
     {
         return $this->belongsTo(Building::class);
+    }
+
+    public function buildingCost()
+    {
+        return $this->hasOne(BuildingCost::class, ['building_id', 'level'], ['building_id', 'level']);
     }
 }

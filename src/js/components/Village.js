@@ -3,7 +3,7 @@ import Gold from './Properties/Gold';
 import Timings from './Properties/Timings';
 import Upgrador from './Properties/Upgrador';
 import Recruiter from './Properties/Recruiter';
-import Expedition from './Expedition';
+import Fortress from './Fortress';
 
 export default class Village {
     constructor() {
@@ -17,6 +17,8 @@ export default class Village {
 
         this.upgrador = new Upgrador();
         this.recruiter = new Recruiter();
+
+        this.fortress = new Fortress();
         
         this.bind();
     }
@@ -35,6 +37,7 @@ export default class Village {
             this.food.set(res.data.village.food);
             this.buildingTimings.set(res.data.village.building_timings);
             this.armyTimings.set(res.data.village.army_timings);
+            this.fortress.set(res.data.village.buildings);
         }).catch(e => {
             console.log(e);
         });

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Building extends Model
 {
+    use \Awobaz\Compoships\Compoships;
+
     protected $fillable = [
         'name',
         'type',

@@ -4,7 +4,7 @@
 
 {% block content %}
     <div class="alert alert-secondary mb-3">
-        Ulepszanie twierdzy przyśpiesza budowę budynków (jeszcze nie zaimplementowane)
+        Ulepszanie <span class="{{ fortress.color }}">{{ fortress.name }}</span> pozwala na rozwijanie budowli
     </div>
 
     <table class="table">
@@ -19,16 +19,18 @@
         </thead>
         <tbody>
             {% for building in buildings %}
-                <tr>
-                    <td>
+                <tr id="building_{{ building.id }}">
+                    <td class="name">
                         <a href="{{ path_for('building.' ~ building.type, {id: village.id}) }}">{{ building.name }}</a><br>
-                        {% for requirement in building.requirementsByLevel %}
-                            <p class="secondary small my-2">{{ requirement.building.name }} {{ requirement.level }}</p>
-                        {% endfor %}
+                        <div class="requirements">
+                            {% for requirement in building.requirementsByLevel %}
+                                <p class="secondary small my-2">{{ requirement.building.name }} {{ requirement.level }}</p>
+                            {% endfor %}
+                        </div>
                     </td>
-                    <td>{{ building.pivot.building_level }}</td>
-                    <td>{{ building.cost_upgrade }}</td>
-                    <td>{{ building.time }}</td>
+                    <td class="level">{{ building.pivot.building_level }}</td>
+                    <td class="cost">{{ building.cost_upgrade }}</td>
+                    <td class="time">{{ building.time }}</td>
                     <td class="text-center">
                         <button class="btn btn-secondary upgrade-building" data-building-id="{{ building.id }}" data-village-id="{{ village.id }}">
                             <span>{{ building.pivot.building_level > 0 ? 'Ulepsz' : 'Rozbuduj' }}</span>

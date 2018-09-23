@@ -29,7 +29,15 @@ class ApiVillagesController extends Controller
             'armyTimings'     => function ($query) {
                 $query->with('army');
             },
+            'armies.requirements.building',
         ]);
+
+        foreach ($village->buildings as $building) {
+            foreach ($building->requirementsByLevel as $requirement) {
+                $requirement->building;
+                $requirement->buildingCost;
+            }
+        }
 
         return $response->withJson([
             'status'  => 'success',
