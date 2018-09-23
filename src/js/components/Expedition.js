@@ -40,6 +40,8 @@ export default class Expedition {
                 console.log(res.data.error);
                 alert(res.data.error);
             }
+
+            this.update();
         }).catch(e => {
             console.log(e);
         });
@@ -53,12 +55,50 @@ export default class Expedition {
             }
 
             this.buildVillages(res.data);
+            this.updateArmy(res.data.user.villages);
         });
     }
 
     buildVillages(data) {
-        data.user.villages.forEach((village, index) => {
+        data.user.villages.map((village) => {
             this.buildVillage(village);
+        });
+    }
+
+    buildVillage(village) {
+        let timings = $('.sidebar #village_' + village.id);
+        let expeditions = this.buildExpeditions(village.expeditions);
+
+        timings.html(expeditions);
+    }
+
+    buildExpeditions(expeditions) {
+        let timings = [];
+
+        expeditions.map(expedition => {
+            let timing = $('<timing class="timing"></timing>');
+            let name = $('<div class="name"></div>').text(expedition.receiver.name);
+            let destination = $('<div class="destination"></div>').text(expedition.destination);
+
+            let reachAt = new Date(Date.parse(expedition.reach_at)).toLocaleTimeString('pl-PL');
+            let time = $('<div class="time"></div>').text(reachAt);
+
+            name.append(destination);
+
+            timing.append(name);
+            timing.append(time);
+            timings.push(timing);
+        });
+
+        return timings;
+    }
+
+    updateArmy(villages) {
+        villages.map(village => {
+            village.armies.map(army => {
+                $('#village_' + village.id + ' ' + '#army_' + army.id).text(army.pivot.amount);
+                console.log(army.pivot.amount, '#village_' + village.id + ' ' + '#army_' + army.id);
+            });
         });
     }
 }

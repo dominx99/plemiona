@@ -62,8 +62,20 @@
             .timing {
                 display: flex;
                 justify-content: space-between;
-                align-items: center;
-                padding: 1rem;
+                align-items: baseline;
+                padding: .5rem 1rem;
+
+                &:first-of-type {
+                    padding-top: 1rem;
+                }
+
+                &:last-of-type {
+                    padding-bottom: 1rem;
+                }
+
+                .destination {
+                    color: darken($secondary, 5);
+                }
             }
         }
     }

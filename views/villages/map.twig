@@ -31,7 +31,7 @@
         </div>
         <div class="col-md-8">
             {% for village in auth.user.villages %}
-                <table class="table active-village" data-sender="{{ village.id }}">
+                <table id="village_{{ village.id }}" class="table active-village" data-sender="{{ village.id }}">
                     <thead>
                         <tr class="header">
                             <th>jednostka</th>
@@ -43,7 +43,7 @@
                         {% for army in village.armies %}
                             <tr>
                                 <td>{{ army.name }}</td>
-                                <td>{{ army.pivot.amount }}</td>
+                                <td id="army_{{ army.id }}">{{ army.pivot.amount }}</td>
                                 <td>
                                     <input class="army-amount" data-army="{{ army.id }}" type="text" value="0">
                                 </td>

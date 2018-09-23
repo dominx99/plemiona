@@ -62,8 +62,8 @@ class ApiExpeditionsController extends Controller
 
         return (new Response())->withJson([
             'user' => $user->with(['villages' => function ($query) {
-                $query->with('expeditions');
-            }])->first(),
+                $query->with(['expeditions.receiver', 'armies']);
+            }])->find($user->id),
         ]);
     }
 }
