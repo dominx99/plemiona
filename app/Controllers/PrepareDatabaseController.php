@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\Army;
 use App\Models\Building;
+use App\Models\BuildingCost;
+use App\Models\Expedition;
 use App\Models\Report;
 use App\Models\Requirement;
 use App\Models\Timing;
@@ -120,6 +122,8 @@ class PrepareDatabaseController extends Controller
         Army::truncate();
         Report::truncate();
         Timing::truncate();
+        Expedition::truncate();
+        BuildingCost::truncate();
 
         foreach (Building::get() as $building) {
             $building->costs()->delete();
