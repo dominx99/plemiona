@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 21 Wrz 2018, 00:47
+-- Czas generowania: 25 Wrz 2018, 22:43
 -- Wersja serwera: 10.1.30-MariaDB
 -- Wersja PHP: 7.2.2
 
@@ -55,6 +55,32 @@ CREATE TABLE `plemiona_army_expedition` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Zrzut danych tabeli `plemiona_army_expedition`
+--
+
+INSERT INTO `plemiona_army_expedition` (`id`, `army_id`, `expedition_id`, `amount`, `created_at`, `updated_at`) VALUES
+(47, 1, 1, 25, '2018-09-23 17:07:09', '0000-00-00 00:00:00'),
+(48, 1, 2, 50, '2018-09-23 17:09:08', '0000-00-00 00:00:00'),
+(49, 1, 3, 85, '2018-09-23 17:10:49', '0000-00-00 00:00:00'),
+(50, 2, 4, 10, '2018-09-23 17:31:46', '0000-00-00 00:00:00'),
+(51, 2, 5, 10, '2018-09-23 17:31:47', '0000-00-00 00:00:00'),
+(52, 2, 6, 10, '2018-09-23 17:31:47', '0000-00-00 00:00:00'),
+(53, 2, 7, 10, '2018-09-23 17:31:47', '0000-00-00 00:00:00'),
+(54, 2, 8, 10, '2018-09-23 17:31:48', '0000-00-00 00:00:00'),
+(55, 1, 9, 145, '2018-09-23 17:31:54', '0000-00-00 00:00:00'),
+(56, 2, 9, 21, '2018-09-23 17:31:54', '0000-00-00 00:00:00'),
+(57, 2, 10, 39, '2018-09-23 17:32:11', '0000-00-00 00:00:00'),
+(58, 2, 11, 50, '2018-09-23 17:32:16', '0000-00-00 00:00:00'),
+(59, 1, 12, 145, '2018-09-23 17:32:20', '0000-00-00 00:00:00'),
+(60, 2, 12, 21, '2018-09-23 17:32:20', '0000-00-00 00:00:00'),
+(61, 1, 13, 145, '2018-09-23 17:56:43', '0000-00-00 00:00:00'),
+(62, 2, 13, 270, '2018-09-23 17:56:43', '0000-00-00 00:00:00'),
+(63, 3, 13, 20, '2018-09-23 17:56:43', '0000-00-00 00:00:00'),
+(64, 2, 14, 40, '2018-09-23 17:58:28', '0000-00-00 00:00:00'),
+(65, 3, 14, 40, '2018-09-23 17:58:28', '0000-00-00 00:00:00'),
+(66, 2, 15, 300, '2018-09-23 18:00:05', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -147,6 +173,7 @@ CREATE TABLE `plemiona_reports` (
   `id` int(11) NOT NULL,
   `village_id` int(11) NOT NULL,
   `expedition_id` int(11) NOT NULL,
+  `is_sender` tinyint(1) NOT NULL,
   `win` tinyint(1) NOT NULL,
   `title` text CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
   `description` text CHARACTER SET utf8 COLLATE utf8_polish_ci,
@@ -166,9 +193,9 @@ CREATE TABLE `plemiona_requirements` (
   `id` int(11) NOT NULL,
   `building_id` int(11) NOT NULL,
   `level` int(11) NOT NULL,
-  `requirementable_level` int(11) DEFAULT NULL,
+  `requirementable_level` int(11) NOT NULL,
   `requirementable_id` int(11) NOT NULL,
-  `requirementable_type` text NOT NULL,
+  `requirementable_type` text CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -315,37 +342,37 @@ ALTER TABLE `plemiona_armies`
 -- AUTO_INCREMENT dla tabeli `plemiona_army_expedition`
 --
 ALTER TABLE `plemiona_army_expedition`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT dla tabeli `plemiona_army_village`
 --
 ALTER TABLE `plemiona_army_village`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT dla tabeli `plemiona_buildings`
 --
 ALTER TABLE `plemiona_buildings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT dla tabeli `plemiona_building_costs`
 --
 ALTER TABLE `plemiona_building_costs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=729;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `plemiona_building_village`
 --
 ALTER TABLE `plemiona_building_village`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT dla tabeli `plemiona_expeditions`
 --
 ALTER TABLE `plemiona_expeditions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `plemiona_reports`
@@ -369,13 +396,13 @@ ALTER TABLE `plemiona_timings`
 -- AUTO_INCREMENT dla tabeli `plemiona_users`
 --
 ALTER TABLE `plemiona_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT dla tabeli `plemiona_villages`
 --
 ALTER TABLE `plemiona_villages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
