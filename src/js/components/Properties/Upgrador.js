@@ -19,7 +19,7 @@ export default class Upgrador {
         }).then(res => {
             if (res.data.error) {
                 console.log(res.data.error);
-                alert(res.data.error);
+                village.alert.set(res.data.error, 'danger');
                 return;
             }
 

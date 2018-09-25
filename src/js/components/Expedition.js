@@ -1,7 +1,11 @@
+import Alert from './Alert';
+
 export default class Expedition {
     constructor() {
         this.attackButtons = '.attackVillage';
         this.activeVillage = '.active-village';
+        
+        this.alert = new Alert();
 
         this.bind();
     }
@@ -38,7 +42,7 @@ export default class Expedition {
         }).then(res => {
             if (res.data.error) {
                 console.log(res.data.error);
-                alert(res.data.error);
+                this.alert.set(res.data.error, 'danger');
             }
 
             this.update();
@@ -51,7 +55,7 @@ export default class Expedition {
         axios.post('/user/expeditions').then(res => {
             if (res.data.error) {
                 console.log(res.data.error);
-                alert(res.data.error);
+                this.alert.set(res.data.error, 'danger');
             }
 
             this.buildVillages(res.data);

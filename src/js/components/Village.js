@@ -4,6 +4,7 @@ import Timings from './Properties/Timings';
 import Upgrador from './Properties/Upgrador';
 import Recruiter from './Properties/Recruiter';
 import Fortress from './Fortress';
+import Alert from './Alert';
 
 export default class Village {
     constructor() {
@@ -19,6 +20,7 @@ export default class Village {
         this.recruiter = new Recruiter();
 
         this.fortress = new Fortress();
+        this.alert = new Alert();
         
         this.bind();
     }
