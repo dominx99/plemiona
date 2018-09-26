@@ -73,41 +73,41 @@ return [
 
     'gold_mine'          => [
         'cost_ratio' => 1.618 * 75,
-        'time_ratio' => 0.618 * 5,
+        'time_ratio' => 0.618 * 4,
     ],
 
     'farm'               => [
         'cost_ratio' => 1.618 * 80,
-        'time_ratio' => 0.618 * 6,
+        'time_ratio' => 0.618 * 5,
     ],
 
     'granary'            => [
-        'cost_ratio' => 1.618 * 150,
-        'time_ratio' => 0.618 * 7,
+        'cost_ratio' => 1.618 * 140,
+        'time_ratio' => 0.618 * 5,
     ],
 
     'fortress'           => [
-        'cost_ratio' => 1.618 * 150,
-        'time_ratio' => 0.618 * 9,
+        'cost_ratio' => 1.618 * 120,
+        'time_ratio' => 0.618 * 6,
     ],
 
     'barrack'            => [
         'cost_ratio' => 1.618 * 200,
-        'time_ratio' => 0.618 * 8,
+        'time_ratio' => 0.618 * 6,
     ],
 
     'smithy'             => [
         'cost_ratio' => 1.618 * 175,
-        'time_ratio' => 0.618 * 7,
+        'time_ratio' => 0.618 * 5,
     ],
 
     'armory'             => [
         'cost_ratio' => 1.618 * 175,
-        'time_ratio' => 0.618 * 7,
+        'time_ratio' => 0.618 * 5,
     ],
 
     'stable'             => [
         'cost_ratio' => 1.618 * 175,
-        'time_ratio' => 0.618 * 7,
+        'time_ratio' => 0.618 * 5,
     ],
 ];
